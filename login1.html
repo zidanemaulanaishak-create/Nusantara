@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin - The Nusantara</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+   
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('indo.jpg');
+    background-repeat: no-repeat;   
+    background-size: cover;         
+    background-position: center;
+    backdrop-filter: blur(10px);
+    
+}
+
+
+.login-container {
+    display: flex;
+    width: 1001px; 
+    height: 601px; 
+    border-radius: 35px;
+    overflow: hidden; 
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+    background-color: #212121;
+
+    
+}
+
+
+.login-image img {
+    height: auto;
+    width: 545px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-weight: 600;
+    position: relative;
+    bottom: 580px;
+    left: 30px;
+}
+
+.logo img {
+    width: 30px; 
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 8px;
+    background-color: #fff; 
+}
+
+.login-form {
+    flex: 1; 
+    background-color: #212121; 
+    color: #fff;
+    padding: 40px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+}
+
+
+
+
+.login-form > * {
+    position: relative; 
+    z-index: 2;
+    margin-top: 10px;
+}
+
+h2 {
+    font-size: 30px;
+    font-weight: 700;
+    margin-right: 200px;
+    margin-bottom: 30px;
+    color: #e4dcd18c;
+    line-height: 1.2;
+}
+
+
+form input {
+    width: 300px;
+    height: 60px;
+    padding: 10px 15px;
+    margin-top: 15px;
+    margin-right: 10px;
+    background-color: transparent;
+    border: 1px solid #E4DCD1; /* Border abu-abu */
+    border-radius: 20px;
+    color: #fff;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+form input::placeholder {
+    color: #888;
+}
+
+form input:focus {
+    border-color: #f7a040; 
+    outline: none;
+}
+
+.enter-btn {
+    width: 35%;
+    height: 10%;
+    padding: 12px;
+    background-color: #e4dcd19f; 
+    color: #1e1e1e;
+    border: none;
+    border-radius: 20px;
+    font-size: 1.1em;
+    font-weight: 550;
+    cursor: pointer;
+    margin-top: 40px;
+    margin-left: 25px;
+    transition: background-color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.enter-btn:hover {
+    background-color: #888;
+}
+
+.atau {
+    text-align: center;
+    color: #aaa;
+    margin: 2px 0 10px 0;
+}
+
+/* Ikon Social Login */
+.social-login {
+    display: flex;
+    
+    padding: 0 30px;
+}
+
+.social-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #444; /* Warna latar belakang ikon */
+    color: #fff;
+    font-size: 1.2em;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.social-icon:hover {
+    background-color: #666;
+    transform: scale(1.05);
+}
+</style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-image">
+            <img src="login.png" alt="">
+            <div class="logo">
+                <img src="logo.png" alt="PTN The Nusantara Logo"> <span style="color: #40200D;">The <span style="color: #1e1e1e;"> Nusantara</span></span>
+            </div>
+            </div>
+
+        <div class="login-form">
+            <h2>Selamat Datang <br> Admin!</h2>
+
+            <form>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+
+               
+            
+            
+                    <p class="atau">Atau</p>
+
+                    <div class="social-login">
+                        <a href="#" class="social-icon google"><i class="fab fa-google"></i></a>
+                        <a href="#" class="social-icon apple"><i class="fab fa-apple"></i></a>
+                        <a href="#" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                    <button type="submit" class="enter-btn"> <a href="http://localhost/belajar_html/modul_7/dashboard.html">Enter</a></button>
+                </div>
+            </form>
+             
+        
+    </div>
+    
+</body>
+</html>

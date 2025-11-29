@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTN | Permainan Tradisional Nusantara</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Baskervville+SC:wght@400..700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Baskervville+SC:wght@400..700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #E4DCD1;
+            color: var(--color-text-dark);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* 1. Header/Navigasi (DEFAULT/DESKTOP) */
+
+      .navbar {
+            background-color: lch(88.51% 7.05 81.53 / 0.473);
+            color: #1E1E1E;
+            border: 3px solid #1E1E1E;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: "Poppins", serif;
+            padding: 20px 5%;
+            position: sticky;
+            top: 20px;
+            max-width: 90%;
+            border-radius: 40px;
+            font-weight: 650;
+            margin: auto;
+            z-index: 100;
+        }
+
+        .logo-container {
+            float: left;
+            margin-right: 0px;
+            align-items: center;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 50px; 
+            width: auto; 
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            font-size: 0.9em;
+            margin: 0;
+
+        }
+
+        .navbar nav ul {
+            display: flex;
+            gap: 40px;
+        }
+        .navbar nav ul a {
+            text-decoration: none;
+            transition: 0.3s;
+            padding: 12px;
+            position: relative;
+            display: inline-block;
+        }
+
+
+        .navbar nav ul a::before {
+            content: '';
+            position: absolute;
+            bottom: 0px;
+            width: 0%;
+            height: 3px;
+            background-color: #1E1E1E;
+            transition: all .5s;
+        }
+
+        .navbar nav ul a:hover::before {
+            width: 75%;
+        }
+       
+        .menu-toggle {
+            display: none;
+            font-size: 2em;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--color-text-light);
+        }
+
+        .hero-section {
+            height: 500px; 
+            background-image: linear-gradient(135deg, #1e1e1e, #474444); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: -127px;
+            position: relative;
+        }
+
+        .hero-overlay {
+            font-family: "Poppins", sans-serif;
+            color: white;
+            padding: 40px;
+            margin-top: 20px;
+        }
+
+        .hero-overlay p {
+            font-size: 1.5em;
+            letter-spacing: 5px;
+            margin-bottom: 5px;
+        }
+
+        .hero-overlay h1 {
+            font-size: 4em;
+            margin: 10px 0;
+            padding: 10px 0;
+        }
+
+        .search-box input {
+            padding: 15px 50px 15px 50px;
+            border: none;
+            border-radius: 5px;
+            width: 400px; 
+            font-size: 1em;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>');
+            background-repeat: no-repeat;
+            background-position: 15px center;
+        }
+
+        .masonry-container {
+            column-count: 5;
+            column-gap: 20px;
+            padding: 20px 60px;
+            width: 1700px;
+            margin: 30px auto;
+        }
+
+        @media (min-width: 768px) {
+            .masonry-container {
+                column-count: 2;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .masonry-container {
+                column-count: 5; 
+            }
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 20px; 
+            overflow: hidden;
+        }
+
+        .masonry-item img {
+            display: block; 
+            border-radius: 20px;
+            height: auto;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .masonry-item:hover {
+            transform: scale(1.02);
+        }
+
+        .parent, .div1, .div2, .div3, .div4, .div5, .div6, .div7, .div8, .div9, .div10 {
+            display: block; 
+            grid-area: unset;
+        }
+
+    .footer {
+            background-color: #1E1E1E;
+            color: whitesmoke;
+            padding: 4% 5%;
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1%;
+            max-width: 80%;
+            margin: 0 auto;
+            text-align: center;
+            
+            
+        }
+
+        .img-icon {
+            height: 30px;
+            width: 30px;
+            gap: 20px;
+            filter: brightness(0) invert(1);
+
+        }
+
+        .footer-col {
+            flex: 1;
+            width: 30%;
+        }
+
+        .footer-col h3 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .footer-col p {
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .social-icons span {
+            font-size: 1.5em;
+            margin-right: 3%;
+            cursor: pointer;
+
+        }
+        
+
+    </style>
+    </head>
+    <body>
+
+        <header class="navbar">
+        <div class="logo-container">
+        <img src="logo.png" alt="Logo" class="logo-img">
+        <span>The Nusantara</span>
+    </div>
+        <nav>
+            <ul>
+                <li><a href="index.html#beranda">Beranda</a></li>
+                <li><a href="index.html#tentang">Tentang</a></li>
+                <li><a href="index.html#Pulau">Pulau</a></li>
+                <li><a href="index.html#galeri">Galeri</a></li>
+                <li><a href="index.html#faq">FAQ</a></li>
+                <li><a href="index.html#masukan">Masukan</a></li>
+                <li><a href="index.html#kontak">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="hero-section">
+        <div>
+        <div class="hero-overlay">
+            <h1>Galeri</h1>
+            <p></p>
+        </div>
+           
+
+        <header class="search-box">
+            <div><input type="text" placeholder="Telusuri">
+                </div>
+                </div>
+            </header>
+            </section>
+   <div class="masonry-container">
+            
+            <div class="masonry-item">
+                <img src="congklak.jpeg" alt="Congklak: Permainan Papan">
+            </div>
+            
+            <div class="masonry-item">
+                <img src="gansing.jpeg" alt="Gasing: Permainan Putar">
+            </div>
+
+            <div class="masonry-item">
+                <img src="bekel.jpeg" alt="Bekel: Permainan Bola dan Biji">
+            </div>
+
+            <div class="masonry-item">
+                <img src="Traditional Games.jpeg" alt="Petak Umpet: Permainan Sembunyi">
+            </div>
+            
+            <div class="masonry-item">
+                <img src="KLRNG.jpg" alt="Egrang: Permainan Keseimbangan">
+            </div>
+
+            <div class="masonry-item">
+                <img src="CNGKLK (1) (1).jpg" alt="Batik: Warisan Budaya">
+            </div>
+
+            <div class="masonry-item">
+                <img src="engklek.jpg" alt="Lompat Tali: Permainan Lompatan">
+            </div>
+
+            <div class="masonry-item">
+                <img src="gsngg.jpeg" alt="Batik: Warisan Budaya">
+            </div>
+            
+            <div class="masonry-item">
+                <img src="gebo (1).jpg" alt="Wayang: Seni Pewayangan">
+            </div>
+
+            <div class="masonry-item">
+                <img src="NEKERAN (1).jpg" alt="Tari Saman: Budaya Aceh">
+            </div>
+
+            <div class="masonry-item">
+                <img src="bambu.png" alt="Tari Saman: Budaya Aceh">
+            </div>
+
+            <div class="masonry-item">
+                <img src="Karung.jpg" alt="Tari Saman: Budaya Aceh">
+            </div>
+
+            <div class="masonry-item">
+                <img src="swng.png" alt="Tari Saman: Budaya Aceh">
+            </div>
+
+            <div class="masonry-item">
+                <img src="klr.png" alt="Tari Saman: Budaya Aceh">
+            </div>
+
+            <div class="masonry-item">
+                <img src="gbk sdr (1) (2).jpeg" alt="Tari Saman: Budaya Aceh">
+            </div>
+
+        </div>
+
+<br><br><br><br><br><br><br><br>
+        <footer class="footer" id="kontak">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>EDIT BARENG CHALLENGE</h3>
+                    <p>Inspired by pinterest</p>
+                    <p>Edited by zidane&alvin</p>
+                </div>
+                <div class="footer-col social-media">
+                    <h3>Social Media</h3>
+                    <div class="social-icons">
+                        <span><img src="instagram.png" alt="instagram" class="img-icon"></span>
+                        <span><img src="twitter.png" alt="twitter" class="img-icon"></span>
+                        <span><img src="whatsapp.png" alt="whatsapp" class="img-icon"></span>
+                        <span><img src="telegram.png" alt="telegram" class="img-icon"></span>
+                    </div>
+                </div>
+                <div class="footer-col contact-us">
+                    <h3>Hubungi Kami</h3>
+                    <p><img src="whatsapp.png" alt="whatsapp" class="img-icon"> : 083679285892</p>
+                    <p><img src="instagram.png" alt="instagram" class="img-icon"> : @thenusantara</p>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
+    

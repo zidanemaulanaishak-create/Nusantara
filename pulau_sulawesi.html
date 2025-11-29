@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTN | Permainan Tradisional Nusantara</title>
+    <style>
+        /* Import Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Baskervville+SC:wght@400..700&display=swap');
+               
+        :root {
+            --color-primary: #1E1E1E; 
+            --color-secondary: #D9D9D9; 
+            --color-accent: #DAA520; 
+            --color-text-light: #F5F5DC; 
+            --color-text-dark: #333; 
+            --color-body-bg: #E0E0E0; 
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #E4DCD1;
+            color: var(--color-text-dark);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+        
+        /* 1. Header/Navigasi */
+
+        .navbar {
+            background-color: lch(88.51% 7.05 81.53 / 0.473);
+            color: #1E1E1E;
+            border: 3px solid #1E1E1E;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: "Poppins", serif;
+            padding: 20px 5%;
+            position: sticky;
+            top: 20px;
+            max-width: 90%;
+            border-radius: 40px;
+            font-weight: 650;
+            margin: auto;
+            z-index: 100;
+        }
+
+        .logo-container {
+            float: left;
+            margin-right: 0px;
+            align-items: center;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 50px; 
+            width: auto; 
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            font-size: 0.9em;
+            margin: 0;
+
+        }
+
+        .navbar nav ul {
+            display: flex;
+            gap: 40px;
+        }
+        .navbar nav ul a {
+            text-decoration: none;
+            transition: 0.3s;
+            padding: 12px;
+            position: relative;
+            display: inline-block;
+        }
+
+        
+
+        .navbar nav ul a::before {
+            content: '';
+            position: absolute;
+            bottom: 0px;
+            width: 0%;
+            height: 3px;
+            background-color: #1E1E1E;
+            transition: all .5s;
+        }
+
+        .navbar nav ul a:hover::before {
+            width: 75%;
+        }
+
+
+        /* 2. Hero Section */
+
+        .hero-section {
+            height: 800px; 
+            background-image: url('gambarjawa.png'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            margin-top:-97px ;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-overlay {
+            font-family: "Baskervville SC", serif;
+            color: white;
+            padding: 40px;
+            margin-top: 20px;
+        }
+
+        .hero-overlay p {
+            font-size: 1.5em;
+            letter-spacing: 5px;
+            margin-bottom: 5px;
+        }
+
+        .hero-overlay h1 {
+            font-size: 4em;
+            margin: 10px 0;
+            border-top: 2px solid white;
+            border-bottom: 2px solid white;
+            padding: 10px 0;
+        }
+
+        .search-box input {
+            padding: 15px 50px 15px 50px;
+            border: none;
+            border-radius: 5px;
+            width: 80%; 
+            max-width: 400px;
+            font-size: 1em;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>');
+            background-repeat: no-repeat;
+            background-position: 15px center;
+        }
+
+        .main-content-container {
+            padding: 100px 5%;
+        }
+
+        .permainan-row {
+            display: flex;
+            justify-content: center;
+            gap: 90px; 
+            margin-bottom: 40px; 
+        }
+
+        .permainan-card {
+            background-color: #f2eded;
+            border-radius: 20px;
+            width: 360px; 
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            overflow: hidden; 
+            padding: 20px;
+            position: relative;
+            padding-bottom: 20px; 
+        }
+        
+        .permainan-img-container {
+            width: 100%;
+            height: 180px; 
+            overflow: hidden;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        .permainan-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            object-fit: cover; 
+            display: block;
+        }
+        
+        .card-content {
+            padding: 0  ;
+        }
+
+        .card-content h3 {
+            font-size: 1.2em;
+            text-align: justify;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            font-weight: 700;
+            color: #1E1E1E;
+        }
+
+        .card-content p {
+            font-size: 0.85em;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            height: 75px; 
+            overflow: hidden; 
+        }
+
+        .tag-container {
+            display: flex;
+            justify-content: flex-start;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            background-color: #E0E0E0;
+            color: #555;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        .read-more-btn {
+            background-color: var(--color-primary);
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            width: 90px;
+            height: 40px;
+            font-size: 0.8em;
+            font-weight: 600;
+            float: right; 
+        }
+
+        .read-more-btn:hover {
+            background-color: #58290D;
+        }
+
+        .footer {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            padding: 4% 5%;
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1%;
+            max-width: 80%;
+            margin: 0 auto;
+            text-align: center;
+            
+            
+        }
+
+        .img-icon {
+            height: 30px;
+            width: 30px;
+            gap: 20px;
+            filter: brightness(0) invert(1);
+
+        }
+
+        .footer-col {
+            flex: 1;
+            width: 30%;
+        }
+
+        .footer-col h3 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .footer-col p {
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .social-icons span {
+            font-size: 1.5em;
+            margin-right: 3%;
+            cursor: pointer;
+
+        }
+
+        
+  </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo-container">
+        <img src="logo.png" alt="Logo" class="logo-img">
+        <span>The Nusantara</span>
+    </div>
+        <nav>
+            <ul>
+                <li><a href="index.html#beranda">Beranda</a></li>
+                <li><a href="index.html#tentang">Tentang</a></li>
+                <li><a href="index.html#Pulau">Pulau</a></li>
+                <li><a href="index.html#galeri">Galeri</a></li>
+                <li><a href="index.html#faq">FAQ</a></li>
+                <li><a href="index.html#masukan">Masukan</a></li>
+                <li><a href="index.html#kontak">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="hero-section">
+        <div>
+        <div class="hero-overlay">
+            <p>PERMAINAN</p>
+            <h1>TRADISIONAL</h1>
+            <p>SULAWESI</p>
+        </div>
+            <br>
+            <br>
+
+        <header class="search-box">
+            <div><input type="text" placeholder="Telusuri">
+                </div>
+                </div>
+            </header>
+            </section>
+
+            <div class="main-content-container">
+        
+        <div class="permainan-row">
+            <div class="permainan-card">
+                <div class="permainan-img-container">
+                    <img src="gansing.jpeg" alt="Cublak Suweng" class="permainan-img">
+                </div>
+                <div class="card-content">
+                    <h3>Maggasing</h3>
+                    <p>Permainan Maggasing adalah permainan tradisional gasing kayu yang populer di kalangan masyarakat Bugis, Sulawesi Selatan...</p>
+                    <div class="tag-container">
+                        <span class="tag">Pengertian</span>
+                        <span class="tag">Filosofi</span>
+                        <span class="tag">Cara Bermain</span>
+                    </div>
+
+                    <a href="http://localhost/belajar_html/modul_7/CublakSuweng.html"><button class="read-more-btn" >Lihat</button></a>
+                </div>
+            </div>
+            
+            <div class="permainan-card">
+                <div class="permainan-img-container">
+                    <img src="lompat-tali-karet (1).jpg" alt="Engklek" class="permainan-img">
+                </div>
+                <div class="card-content">
+                    <h3>Lompat tali</h3>
+                    <p>Permainan lompat tali adalah aktivitas bermain dan berolahraga yang melibatkan melompati sebuah tali yang diayunkan...</p>
+                    <div class="tag-container">
+                        <span class="tag">Pengertian</span>
+                        <span class="tag">Filosofi</span>
+                        <span class="tag">Cara Bermain</span>
+                    </div>
+                    <button class="read-more-btn">Lihat</button>
+                </div>
+            </div>
+            
+            <div class="permainan-card">
+                <div class="permainan-img-container">
+                    <img src="KLRNG.jpg" alt="Congklak" class="permainan-img">
+                </div>
+                <div class="card-content">
+                    <h3>Kelereng</h3>
+                    <p>Permainan kelereng adalah permainan tradisional anak-anak yang menggunakan bola-bola kecil bulat yang terbuat dari kaca...</p>
+                    <div class="tag-container">
+                        <span class="tag">Pengertian</span>
+                        <span class="tag">Filosofi</span>
+                        <span class="tag">Cara Bermain</span>
+                    </div>
+                    <button class="read-more-btn">Lihat</button>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="permainan-row">
+            <div class="permainan-card">
+                <div class="permainan-img-container">
+                    <img src="gbo (1) (1) (1).jpg" alt="Gobak sodor" class="permainan-img">
+                </div>
+                <div class="card-content">
+                    <h3>Gebo</h3>
+                    <p>Permainan "Gebo" adalah sebutan lain untuk permainan tradisional Kasti di Sulawesi Selatan, di mana pemain melempar...</p>
+                    <div class="tag-container">
+                        <span class="tag">Pengertian</span>
+                        <span class="tag">Filosofi</span>
+                        <span class="tag">Cara Bermain</span>
+                    </div>
+                    <button class="read-more-btn">Lihat</button>
+                </div>
+            </div>
+            
+            <div class="permainan-card">
+                <div class="permainan-img-container">
+                    <img src="suweng.jpeg" alt="Cublak Suweng" class="permainan-img">
+                </div>
+                <div class="card-content">
+                    <h3>Bentengan</h3>
+                    <p>Bentengan adalah permainan tradisional berkelompok yang dimainkan oleh dua tim untuk menyerang dan mempertahankan...</p>
+                    <div class="tag-container">
+                        <span class="tag">Pengertian</span>
+                        <span class="tag">Filosofi</span>
+                        <span class="tag">Cara Bermain</span>
+                    </div>
+                    <button class="read-more-btn">Lihat</button>
+                </div>
+            </div>
+            
+            <div class="permainan-card">
+                <div class="permainan-img-container">
+                    <img src="suweng.jpeg" alt="Cublak Suweng" class="permainan-img">
+                </div>
+                <div class="card-content">
+                    <h3>Petak Umpet</h3>
+                    <p>Permainan petak umpet adalah permainan mencari dan bersembunyi yang dilakukan oleh minimal dua orang di luar ruangan....</p>
+                    <div class="tag-container">
+                        <span class="tag">Pengertian</span>
+                        <span class="tag">Filosofi</span>
+                        <span class="tag">Cara Bermain</span>
+                    </div>
+                    <button class="read-more-btn">Lihat</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <footer class="footer" id="kontak">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>EDIT BARENG CHALLENGE</h3>
+                    <p>Inspired by pinterest</p>
+                    <p>Edited by zidane&alvin</p>
+                </div>
+                <div class="footer-col social-media">
+                    <h3>Social Media</h3>
+                    <div class="social-icons">
+                        <span><img src="instagram.png" alt="instagram" class="img-icon"></span>
+                        <span><img src="twitter.png" alt="twitter" class="img-icon"></span>
+                        <span><img src="whatsapp.png" alt="whatsapp" class="img-icon"></span>
+                        <span><img src="telegram.png" alt="telegram" class="img-icon"></span>
+                    </div>
+                </div>
+                <div class="footer-col contact-us">
+                    <h3>Hubungi Kami</h3>
+                    <p><img src="whatsapp.png" alt="whatsapp" class="img-icon"> : 083679285892</p>
+                    <p><img src="instagram.png" alt="instagram" class="img-icon"> : @thenusantara</p>
+                </div>
+            </div>
+        </footer>
+
+    
+</body>
+</html>

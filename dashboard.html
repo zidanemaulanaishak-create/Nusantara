@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Manajemen Warisan Budaya</title>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Menggunakan font Inter secara default */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        /* --- GLOBAL & LAYOUT --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e7d8c2; 
+            min-height: 100vh;
+            margin: 0;
+            display: flex; 
+        }
+
+        /* Kelas untuk menyembunyikan tampilan */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Kontainer Utama - Batas Maksimum */
+        .max-width-container {
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- SIDEBAR STYLES --- */
+        .sidebar {
+            width: 16rem; 
+            background-color: #f3e5d6;
+            border-right: 1px solid #e5e7eb;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            z-index: 40;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.02);
+        }
+        .sidebar-header {
+            margin-bottom: 2rem;
+            padding: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e1e1e; /* Teal color */
+        }
+        
+        .sidebar-nav ul, .sidebar-footer ul {
+            list-style-type: none; 
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav {
+            flex-grow: 1;
+        }
+        .sidebar-list-item {
+            margin-bottom: 0.25rem;
+        }
+        .sidebar-item-link {
+            display: flex;
+            align-items: center; 
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            color: #374151;
+            font-weight: 500;
+            transition: background-color 0.15s;
+            gap: 0.75rem; 
+            text-decoration: none;
+        }
+        .sidebar-item-link:hover {
+            background-color: #e5f7f5; /* Light hover teal */
+            color: #1e1e1e;
+        }
+        .sidebar-item-active {
+            background-color: #1e1e1e; 
+            color: #ffffff !important; 
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(32, 34, 34, 0.2);
+        }
+        .sidebar-item-active:hover {
+            background-color: #323838;
+            color: #ffffff !important;
+        }
+        .sidebar-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+        
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 0.5rem; 
+            border-top: 1px solid #e5e7eb;
+        }
+        #logoutLink {
+            color: #1f2937;
+            font-weight: 600;
+        }
+        #logoutLink:hover {
+            background-color: #dc2626;
+            color: #ffffff !important;
+            box-shadow: 0 4px 6px rgba(220, 38, 38, 0.2);
+        }
+
+        /* --- MAIN CONTENT AREA --- */
+        .main-content-area {
+            flex: 1;
+            margin-left: 16rem; 
+            padding: 2rem;
+            width: calc(100% - 16rem);
+            box-sizing: border-box;
+        }
+        
+        /* Utility Classes untuk Layout */
+        .flex-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem; 
+        }
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem; 
+        }
+        
+        /* Media Queries untuk Responsif */
+        @media (min-width: 640px) { /* Tablet/Small Desktop */
+            .sm-grid-2-cols {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .lg-grid-4-cols {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .lg-grid-layout-complex-dashboard {
+                /* 2/3 (Aktivitas) | 1/3 (Inventaris) */
+                grid-template-columns: 2fr 1fr; 
+            }
+        }
+        @media (min-width: 1024px) { /* Desktop/Large Desktop */
+            .lg-grid-3-cols {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* --- STYLING KOMPONEN DASHBOARD BARU --- */
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+        }
+        .card-header {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        /* KOTAK METRIK UTAMA (Fokus pada Kualitas Data) */
+        .metric-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        .metric-icon-box {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        /* Warna untuk Ikon Metrik */
+        .bg-teal { background-color: #ccfbf1; color: #1e1e1e; }
+        .bg-blue { background-color: #dbeafe; color: #1e1e1e; }
+        .bg-yellow { background-color: #fef3c7; color: #1e1e1e; }
+        .bg-red { background-color: #fee2e2; color: #1e1e1e; }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1f2937;
+        }
+        .metric-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #6b7280;
+        }
+
+        /* GRAFIK DUMMY */
+        .dummy-chart-container {
+            height: 300px;
+            background-color: #f9fafb;
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #9ca3af;
+            font-style: italic;
+            border: 1px dashed #e5e7eb;
+        }
+        
+        /* AKTIVITAS TERKINI (Sama seperti sebelumnya, tapi dengan pembaruan warna) */
+        .activity-list { list-style: none; padding: 0; margin: 0; }
+        .activity-list-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        .activity-icon-container {
+            width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; justify-content: center; align-items: center; flex-shrink: 0;
+        }
+        .tag-info {
+            display: inline-block; padding: 2px 8px; font-size: 0.75rem; border-radius: 0.5rem; font-weight: 600; margin-top: 0.25rem;
+        }
+        .tag-kritik { background-color: #fecaca; color: #b91c1c; }
+        .tag-saran { background-color: #d1fae5; color: #065f46; }
+        .icon-medium { width: 1.25rem; height: 1.25rem; }
+
+        /* LIST INVENTARIS RINGKAS (KANAN) */
+        .inventory-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .inventory-item:last-child { border-bottom: none; }
+        .inventory-name { font-weight: 600; color: #374151; font-size: 0.875rem; }
+        .inventory-count { font-weight: 700; color: #0d9488; font-size: 1rem; }
+        .inventory-count-red { color: #dc2626; }
+        
+        /* General component styles (Tabel, Galeri, Laporan - Tetap) */
+        .table-responsive { overflow-x: auto; }
+        .table-min-w { width: 100%; min-width: 600px; border-collapse: collapse; }
+        .table-header th { padding: 12px 24px; text-align: left; font-size: 0.75rem; font-weight: 500; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; }
+        .table-body td { padding: 16px 24px; font-size: 0.875rem; color: #1f2937; border-top: 1px solid #e5e7eb; }
+        .table-body tr:hover { background-color: #f9fafb; }
+        .action-cell { text-align: center; }
+        .action-buttons { display: flex; justify-content: center; gap: 0.5rem; }
+        .icon-button { background: none; border: none; cursor: pointer; padding: 4px; transition: color 0.15s; }
+        .icon-small { width: 1rem; height: 1rem; display: inline-block; }
+        .edit-button { color: #1e1e1e; }
+        .delete-button { color: #1e1e1e; }
+        .gallery-card { padding: 0; overflow: hidden; position: relative; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border-radius: 12px; }
+        .gallery-img-container { height: 12rem; overflow: hidden; position: relative; }
+        .gallery-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease, filter 0.3s ease; }
+        .gallery-card:hover .gallery-img { transform: scale(1.05); filter: brightness(0.85); }
+        .gallery-action-overlay { position: absolute; top: 0; right: 0; padding: 0.75rem; opacity: 0; transition: opacity 0.3s; background: linear-gradient(to top left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%); border-top-right-radius: 12px; display: flex; gap: 0.5rem; }
+        .gallery-card:hover .gallery-action-overlay { opacity: 1; }
+        .overlay-button { padding: 4px; border-radius: 50%; background-color: rgba(55, 65, 81, 0.7); color: white; border: none; cursor: pointer; }
+        .report-scroll-container { max-height: 65vh; overflow-y: auto; }
+        .report-scroll-container::-webkit-scrollbar { width: 8px; }
+        .report-scroll-container::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 4px; }
+        .report-item { background-color: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); border: 1px solid #f3f4f6; transition: box-shadow 0.3s; }
+        .button-style { padding: 0.5rem 1rem; font-weight: 600; border-radius: 0.5rem; border: none; cursor: pointer; transition: background-color 0.15s, box-shadow 0.15s; }
+        .button-primary { background-color: #1e1e1e; color: white; }
+        .button-primary:hover { background-color: #1e1e1e; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .button-secondary { background-color: #e5e7eb; color: #1f2937; font-weight: 500; }
+        .button-secondary:hover { background-color: #d1d5db; }
+        .button-green { background-color: #1e1e1e; }
+        .button-green:hover { background-color: #262b29; }
+        .form-input { width: 100%; padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 0.5rem; box-sizing: border-box; transition: border-color 0.15s, box-shadow 0.15s; }
+        .form-input:focus { outline: none; border-color: #0d9488; box-shadow: 0 0 0 1px #0d9488; }
+        .modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 50; }
+        .modal-content { background-color: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 500px; animation: fadeIn 0.3s; }
+    </style>
+</head>
+<body>
+
+    <!-- 1. SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <span>The Nusantara</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="sidebar-list-item">
+                    <a href="#" id="dashboardLink" class="sidebar-item-link">
+                        <span data-lucide="layout-dashboard" class="sidebar-icon"></span>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="#" id="gamesLink" class="sidebar-item-link">
+                        <span data-lucide="puzzle" class="sidebar-icon"></span>
+                        Permainan
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="#" id="galleryLink" class="sidebar-item-link">
+                        <span data-lucide="image" class="sidebar-icon"></span>
+                        Galeri
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="#" id="reportsLink" class="sidebar-item-link">
+                        <span data-lucide="file-text" class="sidebar-icon"></span>
+                        Laporan
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <ul>
+                <li class="sidebar-list-item">
+                    <a href="#" id="logoutLink" class="sidebar-item-link group">
+                        <span class="flex-container" style="gap: 0.75rem;">
+                            <span data-lucide="log-out" class="sidebar-icon"></span>
+                            Keluar
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- 2. MAIN CONTENT AREA -->
+    <main class="main-content-area">
+        <div class="max-width-container">
+            
+            <!-- VIEW: DASHBOARD (ID: dashboardView) - BARU V4 -->
+            <section id="dashboardView" class="app-view">
+                <header class="flex-between" style="align-items: flex-end; margin-bottom: 2rem; border-bottom: 2px solid #e5e7eb; padding-bottom: 1rem;">
+                    <div>
+                        <h1 style="font-size: 2.25rem; font-weight: 800; color: #1f2937;">Dashboard </h1>
+                        <p style="font-size: 0.875rem; color: #6b7280; margin-top: 0.25rem;">Pemantauan Kualitas Data & Tren Warisan Budaya.</p>
+                    </div>
+                    <p style="font-size: 0.875rem; color: #9ca3af;" id="userIdDisplayDashboard"></p>
+                </header>
+
+                <!-- 1. METRIK KUALITAS & TOTAL (4 Kolom) -->
+                <div class="grid-layout sm-grid-2-cols lg-grid-4-cols" style="margin-bottom: 2rem;">
+                    
+                    <div class="metric-card">
+                        <div class="flex-between">
+                            <span class="metric-title">Total Permainan</span>
+                            <div class="metric-icon-box bg-teal"><span data-lucide="dices" class="icon-medium"></span></div>
+                        </div>
+                        <p class="metric-value" id="totalGamesStat">40</p>
+                        <p style="font-size: 0.75rem; color: #1e1e1e;">Inventaris Permainan Terdata</p>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="flex-between">
+                            <span class="metric-title">Galeri</span>
+                            <div class="metric-icon-box bg-blue"><span data-lucide="camera" class="icon-medium"></span></div>
+                        </div>
+                        <p class="metric-value" id="totalGalleryStat">34</p>
+                        <p style="font-size: 0.75rem; color: #2563eb;">Jumlah Foto & Media</p>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="flex-between">
+                            <span class="metric-title">Masukan Belum Ditindak</span>
+                            <div class="metric-icon-box bg-red"><span data-lucide="alert-triangle" class="icon-medium"></span></div>
+                        </div>
+                        <p class="metric-value" id="pendingFeedbackStat">2</p>
+                        <p style="font-size: 0.75rem; color: #dc2626;">Kritik/Saran Prioritas</p>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="flex-between">
+                            <span class="metric-title">Data Kurang Lengkap</span>
+                            <div class="metric-icon-box bg-yellow"><span data-lucide="file-warning" class="icon-medium"></span></div>
+                        </div>
+                        <p class="metric-value" id="incompleteGamesStat">0</p>
+                        <p style="font-size: 0.75rem; color: #d97706;">Permainan Tanpa Genre/Platform</p>
+                    </div>
+                </div>
+
+                <!-- 2. TREND & AKTIVITAS (2/3 | 1/3) -->
+                <div class="grid-layout lg-grid-layout-complex-dashboard">
+                    
+                    <!-- Kiri: Tren Masukan (Grafik Dummy) -->
+                    <div class="card" style="padding: 1.5rem;">
+                        <h2 class="card-header" style="margin-bottom: 1rem;">Tren Masukan Pembaca 6 Bulan Terakhir</h2>
+                        <div class="dummy-chart-container">
+                            
+                        </div>
+                        <p style="margin-top: 1rem; font-size: 0.875rem; color: #6b7280; text-align: center;"></p>
+                    </div>
+
+                    <!-- Kanan: Status Inventaris Permainan -->
+                    <div class="card" style="padding: 1.5rem;">
+                         <h2 class="card-header" style="margin-bottom: 1rem;">Status Ringkas</h2>
+                         <div style="display: flex; flex-direction: column; gap: 0.5rem;" id="inventoryStatusList">
+                             <!-- Data akan diisi oleh JS -->
+                            <div class="inventory-item">
+                                <span class="inventory-name">Permainan Dalam Ruangan</span>
+                                <span class="inventory-count" id="indoorGamesStat">14</span>
+                            </div>
+                            <div class="inventory-item">
+                                <span class="inventory-name">Permainan Luar Ruangan</span>
+                                <span class="inventory-count" id="outdoorGamesStat">12</span>
+                            </div>
+                            <div class="inventory-item">
+                                <span class="inventory-name">Foto (Terbaru)</span>
+                                <span class="inventory-count" id="latestGalleryCount">7</span>
+                            </div>
+                            <div class="inventory-item">
+                                <span class="inventory-name">Masukan Kritik</span>
+                                <span class="inventory-count inventory-count-red" id="criticismCount">2</span>
+                            </div>
+                         </div>
+                         <button class="button-style button-secondary" style="width: 100%; margin-top: 1.5rem;" onclick="changeView('reportsView')">Lihat Semua Laporan</button>
+                    </div>
+
+                    <!-- Paling Bawah: Aktivitas Log Terbaru -->
+                    <div class="card lg-grid-4-cols" style="grid-column: 1 / -1; margin-top: 1.5rem;">
+                        <h2 class="card-header" style="margin-bottom: 1rem;">Log Aktivitas Database Terbaru</h2>
+                        <ul class="activity-list" id="latestActivityList">
+                            <!-- Data akan diisi oleh JS -->
+                            <li style="text-align: center; color: #6b7280; padding: 1rem;">Memuat log aktivitas (Perubahan Games & Galeri)...</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- VIEW: PERMAINAN (ID: gamesView) -->
+            <section id="gamesView" class="app-view hidden"> 
+                <header class="flex-between" style="margin-bottom: 2rem;">
+                    <div>
+                        <h1 style="font-size: 1.875rem; font-weight: 800; color: #1f2937;">Manajemen Permainan</h1>
+                        <p style="font-size: 0.875rem; color: #6b7280; margin-top: 0.25rem;" id="userIdDisplay">Menghubungkan ke database...</p>
+                    </div>
+                    <button id="addGameButton" class="button-style button-primary" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                        <span class="flex-container" style="gap: 0.25rem;">
+                            <span data-lucide="plus" style="width: 1.25rem; height: 1.25rem;"></span>
+                            <span>Tambah</span>
+                        </span>
+                    </button>
+                </header>
+
+                <div class="card table-responsive">
+                    <table class="table-min-w">
+                        <thead class="table-header">
+                            <tr>
+                                <th>Nama Permainan</th>
+                                <th>Platform/Media</th>
+                                <th>Genre</th>
+                                <th>Terakhir Diperbarui</th>
+                                <th style="text-align: center;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gamesTableBody" style="background-color: white;">
+                            <tr>
+                                <td colspan="5" style="padding: 1rem 1.5rem; text-align: center; font-size: 0.875rem; color: #6b7280;">Memuat data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- VIEW: GALERI (ID: galleryView) -->
+            <section id="galleryView" class="app-view hidden"> 
+                <header class="flex-between" style="margin-bottom: 2rem;">
+                    <div>
+                        <h1 style="font-size: 1.875rem; font-weight: 800; color: #1f2937;">Galeri Dokumentasi</h1>
+                        <p style="font-size: 0.875rem; color: #6b7280; margin-top: 0.25rem;">Arsip foto kegiatan pelestarian permainan tradisional.</p>
+                    </div>
+                    <button id="addGalleryButton" class="button-style button-primary" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                        <span class="flex-container" style="gap: 0.25rem;">
+                            <span data-lucide="image-plus" style="width: 1.25rem; height: 1.25rem;"></span>
+                            <span>Tambah Foto</span>
+                        </span>
+                    </button>
+                </header>
+
+                <!-- Grid Galeri -->
+                <div id="galleryGrid" class="grid-layout lg-grid-3-cols">
+                    <p style="text-align: center; color: #6b7280; grid-column: 1 / -1; padding: 2rem 0;">Memuat Galeri...</p>
+                </div>
+            </section>
+
+            <!-- VIEW: LAPORAN (ID: reportsView) -->
+            <section id="reportsView" class="app-view hidden">
+                <header style="margin-bottom: 2rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem;">
+                    <h1 style="font-size: 1.875rem; font-weight: 800; color: #1f2937;">Laporan Masukan Pembaca</h1>
+                    <p style="font-size: 0.875rem; color: #6b7280; margin-top: 0.25rem;">Kritik dan Saran dari Pembaca Terkini</p>
+                </header>
+
+                <!-- Ringkasan Laporan -->
+                <div class="grid-layout lg-grid-3-cols" style="margin-bottom: 2.5rem;">
+                    <div class="stat-card" style="border-radius: 0.5rem; padding: 1.25rem; border: 1px solid #dbeafe; background-color: #eff6ff;">
+                        <p style="font-size: 0.875rem; font-weight: 500; color: #2563eb;">Total Masukan</p>
+                        <p id="totalFeedback" style="font-size: 1.875rem; font-weight: 700; color: #1f2937; margin-top: 0.25rem;">25</p>
+                    </div>
+                    <div class="stat-card" style="border-radius: 0.5rem; padding: 1.25rem; border: 1px solid #fde68a; background-color: #fffdf2;">
+                        <p style="font-size: 0.875rem; font-weight: 500; color: #b45309;">Perlu Tindakan</p>
+                        <p id="pendingFeedback" style="font-size: 1.875rem; font-weight: 700; color: #1f2937; margin-top: 0.25rem;">5</p>
+                    </div>
+                    <div class="stat-card" style="border-radius: 0.5rem; padding: 1.25rem; border: 1px solid #dcfce7; background-color: #f0fdf4;">
+                        <p style="font-size: 0.875rem; font-weight: 500; color: #059669;">Saran Positif</p>
+                        <p id="positiveFeedback" style="font-size: 1.875rem; font-weight: 700; color: #1f2937; margin-top: 0.25rem;">20</p>
+                    </div>
+                </div>
+
+                <!-- Filter Laporan -->
+                <div class="flex-container sm-flex-row sm-align-center" style="margin-bottom: 1.5rem; gap: 1rem; flex-direction: column;">
+                    <input type="text" id="reportSearchBar" placeholder="Cari nama atau isi masukan..."
+                           class="form-input" style="padding: 0.75rem; width: 100%;">
+                    
+                    <select id="reportFilterType"
+                            class="form-input" style="padding: 0.75rem; width: 100%; background-color: white; appearance: none;">
+                        <option value="all">Semua Tipe</option>
+                        <option value="Kritik">Kritik</option>
+                        <option value="Saran">Saran</option>
+                    </select>
+                </div>
+
+                <!-- Daftar Masukan -->
+                <div class="card report-scroll-container" style="padding: 1rem; background-color: #f9fafb;">
+                    <div id="feedbackList" style="display: flex; flex-direction: column; gap: 1rem;">
+                        <p style="text-align: center; color: #6b7280;">Memuat laporan...</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Notifikasi & Modal (Tetap Ada) -->
+            <div id="messageBox" style="position: fixed; bottom: 1rem; right: 1rem; padding: 0.75rem; background-color: #ef4444; color: white; border-radius: 0.5rem; box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); opacity: 0; transition: opacity 0.3s;" role="alert" class="hidden"></div>
+
+            <!-- MODAL PERMAINAN -->
+            <div id="gameModal" class="modal-backdrop hidden">
+                <div class="modal-content">
+                    <h3 id="modalTitle" style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: #1f2937;">Tambah Permainan</h3>
+                    <form id="gameForm">
+                        <input type="hidden" id="gameIdInput">
+                        <div style="margin-bottom: 1rem;">
+                            <label for="name" style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.25rem;">Nama Permainan</label>
+                            <input type="text" id="name" required class="form-input">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <label for="platform" style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.25rem;">Platform</label>
+                            <select id="platform" required class="form-input">
+                                <option value="" disabled selected>Pilih Platform</option>
+                                <option value="Luar Ruangan">Luar Ruangan</option>
+                                <option value="Dalam Ruangan">Dalam Ruangan</option>
+                                <option value="Digital">Digital</option>
+                                <option value="Kombinasi">Kombinasi</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label for="genre" style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.25rem;">Genre</label>
+                            <input type="text" id="genre" required class="form-input">
+                        </div>
+                        <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+                            <button type="button" id="closeGameModalButton" class="button-style button-secondary">Batal</button>
+                            <button type="submit" id="saveGameButton" class="button-style button-primary">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- MODAL GALERI -->
+            <div id="galleryModal" class="modal-backdrop hidden">
+                <div class="modal-content">
+                    <h3 id="galleryModalTitle" style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: #1f2937;">Tambah Foto Galeri</h3>
+                    <form id="galleryForm">
+                        <input type="hidden" id="galleryIdInput">
+                        <div style="margin-bottom: 1rem;">
+                            <label for="photoTitle" style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.25rem;">Judul Foto</label>
+                            <input type="text" id="photoTitle" required class="form-input" style="border-color: #34d399;">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <label for="photoDescription" style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.25rem;">Deskripsi Singkat</label>
+                            <input type="text" id="photoDescription" required class="form-input" style="border-color: #34d399;">
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label for="photoUrl" style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.25rem;">URL Gambar</label>
+                            <input type="text" id="photoUrl" required class="form-input" style="border-color: #34d399;">
+                        </div>
+                        <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+                            <button type="button" id="closeGalleryModalButton" class="button-style button-secondary">Batal</button>
+                            <button type="submit" id="saveGalleryButton" class="button-style button-primary">Simpan Foto</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Script Utama -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, addDoc, setDoc, deleteDoc, onSnapshot, collection, setLogLevel, serverTimestamp, getDocs, query, where, orderBy, limit } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- KONFIGURASI FIREBASE ---
+        let app, db, auth, userId;
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        
+        const gamesCollectionPath = `artifacts/${appId}/public/data/games`;
+        const galleryCollectionPath = `artifacts/${appId}/public/data/gallery`;
+        const feedbackCollectionPath = `artifacts/${appId}/public/data/feedback`; 
+
+        const initialGames = [
+            { name: "Congklak", platform: "Dalam Ruangan", genre: "Papan, Strategi" },
+            { name: "Gasing", platform: "Luar Ruangan", genre: "Fisik, Keterampilan" },
+            { name: "Gebo", platform: "Luar Ruangan", genre: "Ketangkasan, Melempar" },
+            { name: "Egrang", platform: "Luar Ruangan", genre: "Fisik, Keseimbangan" },
+            { name: "Engklek", platform: "Luar Ruangan", genre: "Fisik, Melompat" },
+            { name: "Cublak Suweng", platform: "Dalam Ruangan", genre: "Tangan, Nyanyian" },
+            { name: "Bola Bekel", platform: "Dalam Ruangan", genre: "Keterampilan, Kecepatan" },
+            { name: "Balap Karung", platform: "Luar Ruangan", genre: "Fisik, Perlombaan" }
+        ];
+        // Data Galeri Awal (Opsional)
+        const initialGalleryItems = [
+            { title: "Lomba Egrang", description: "Acara lomba Egrang di lapangan desa.", imageUrl: "https://placehold.co/400x300/ccfbf1/0d9488?text=Lomba+Egrang", lastUpdated: new Date() },
+            { title: "Bermain Congklak", description: "Anak-anak bermain Congklak di serambi rumah.", imageUrl: "https://placehold.co/400x300/dbeafe/2563eb?text=Bermain+Congklak", lastUpdated: new Date(Date.now() - 86400000) },
+            { title: "Gasing Berputar", description: "Foto fokus Gasing yang sedang berputar kencang.", imageUrl: "https://placehold.co/400x300/fef3c7/d97706?text=Gasing", lastUpdated: new Date(Date.now() - 172800000) }
+        ]; 
+
+        // --- DATA DUMMY LAPORAN (STATIC - HANYA DIGUNAKAN UNTUK DEMO AWAL JIKA DB KOSONG) ---
+        const initialFeedbackData = [
+            { name: "Rudi Hartono", email: "rudi.h@mail.com", type: "Saran", content: "Situs sudah bagus, tapi mohon tambahkan fitur pencarian permainan berdasarkan daerah asal.", date: "2024-10-25", status: "Pending", tags: ["fitur", "UX"], timestamp: new Date(2024, 9, 25) },
+            { name: "Siti Rahmawati", email: "siti.r@mail.com", type: "Kritik", content: "Ada typo di deskripsi permainan Engklek. Mohon diperbaiki.", date: "2024-10-24", status: "Selesai", tags: ["konten", "typo"], timestamp: new Date(2024, 9, 24) },
+            { name: "Bambang Wijaya", email: "bambang.w@mail.com", type: "Saran", content: "Sebaiknya galeri foto bisa di-zoom saat diklik.", date: "2024-10-23", status: "Dipertimbangkan", tags: ["galeri", "UI"], timestamp: new Date(2024, 9, 23) },
+            { name: "Nurul Aini", email: "nurul.a@mail.com", type: "Kritik", content: "Tampilan tabel permainan agak sempit di HP saya.", date: "2024-10-22", status: "Pending", tags: ["mobile", "layout"], timestamp: new Date(2024, 9, 22) },
+            { name: "Fauzi Akmal", email: "fauzi.a@mail.com", type: "Saran", content: "Mohon adakan event lomba virtual.", date: "2024-10-21", status: "Selesai", tags: ["event"], timestamp: new Date(2024, 9, 21) },
+        ];
+
+        // --- UI ELEMENTS ---
+        const gamesTableBody = document.getElementById('gamesTableBody');
+        const gameModal = document.getElementById('gameModal');
+        const gameForm = document.getElementById('gameForm');
+        const messageBox = document.getElementById('messageBox');
+        
+        // Gallery UI
+        const galleryGrid = document.getElementById('galleryGrid');
+        const galleryModal = document.getElementById('galleryModal');
+        const galleryForm = document.getElementById('galleryForm');
+
+        // Report UI
+        const feedbackListEl = document.getElementById('feedbackList');
+        const reportSearchBar = document.getElementById('reportSearchBar');
+        const reportFilterType = document.getElementById('reportFilterType');
+        const totalFeedbackEl = document.getElementById('totalFeedback');
+        const pendingFeedbackEl = document.getElementById('pendingFeedback');
+        const positiveFeedbackEl = document.getElementById('positiveFeedback');
+
+        // Dashboard UI
+        const latestActivityListEl = document.getElementById('latestActivityList');
+
+        // --- NAVIGASI ---
+        function changeView(viewId) {
+            document.querySelectorAll('.app-view').forEach(view => view.classList.add('hidden'));
+            const selectedView = document.getElementById(viewId);
+            if (selectedView) selectedView.classList.remove('hidden');
+
+            document.querySelectorAll('.sidebar-item-link').forEach(link => link.classList.remove('sidebar-item-active'));
+            
+            const linkId = viewId.replace('View', 'Link');
+            const activeLink = document.getElementById(linkId);
+            if (activeLink) activeLink.classList.add('sidebar-item-active');
+            
+            lucide.createIcons();
+        }
+
+        // --- HELPER FUNCTIONS ---
+        function showNotification(message, type = 'error') {
+            messageBox.textContent = message;
+            messageBox.style.backgroundColor = type === 'success' ? '#0d9488' : '#dc2626'; // teal-600 or red-600
+            
+            messageBox.classList.remove('hidden');
+            setTimeout(() => { messageBox.style.opacity = '1'; }, 10);
+            setTimeout(() => {
+                messageBox.style.opacity = '0';
+                setTimeout(() => { messageBox.classList.add('hidden'); }, 300);
+            }, 3000);
+        }
+
+        function formatFirestoreDate(timestamp) {
+            if (timestamp && typeof timestamp.toDate === 'function') {
+                return timestamp.toDate().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+            }
+            return '-';
+        }
+
+        function formatRelativeTime(timestamp) {
+            const now = new Date();
+            let date;
+            if (timestamp && typeof timestamp.toDate === 'function') {
+                date = timestamp.toDate();
+            } else if (timestamp instanceof Date) {
+                date = timestamp;
+            } else {
+                return '-';
+            }
+
+            const diffSeconds = Math.floor((now - date) / 1000);
+            const diffMinutes = Math.floor(diffSeconds / 60);
+            const diffHours = Math.floor(diffMinutes / 60);
+            const diffDays = Math.floor(diffHours / 24);
+
+            if (diffDays > 7) return formatFirestoreDate(timestamp);
+            if (diffDays > 0) return `${diffDays} hari lalu`;
+            if (diffHours > 0) return `${diffHours} jam lalu`;
+            if (diffMinutes > 0) return `${diffMinutes} menit lalu`;
+            return 'Baru saja';
+        }
+
+        
+        // --- FIREBASE LOGIC (GAMES, GALLERY & FEEDBACK) ---
+        async function initializeDataIfEmpty(collectionPath, initialData) {
+            if (!db || initialData.length === 0) return; 
+            const colRef = collection(db, collectionPath);
+            try {
+                const snapshot = await getDocs(query(colRef));
+                if (snapshot.empty) {
+                    for (const item of initialData) {
+                        const dataToSave = { ...item };
+                        if (dataToSave.timestamp) delete dataToSave.timestamp; 
+                        dataToSave.lastUpdated = serverTimestamp(); 
+                        if (dataToSave.tags) dataToSave.tags = JSON.stringify(dataToSave.tags); 
+                        
+                        await addDoc(colRef, dataToSave);
+                    }
+                }
+            } catch (error) { console.error("Gagal inisialisasi:", error); }
+        }
+
+        function setupRealtimeListener() {
+            if (!db || !userId) return;
+            // Inisialisasi Data Awal (jika DB kosong)
+            initializeDataIfEmpty(gamesCollectionPath, initialGames); 
+            initializeDataIfEmpty(galleryCollectionPath, initialGalleryItems);
+            initializeDataIfEmpty(feedbackCollectionPath, initialFeedbackData.map(f => {
+                 const { timestamp, ...rest } = f; 
+                 return { ...rest, tags: f.tags, lastUpdated: serverTimestamp() } 
+            }));
+
+            // Listener Permainan
+            onSnapshot(collection(db, gamesCollectionPath), (snapshot) => {
+                const games = [];
+                snapshot.forEach(doc => games.push({ id: doc.id, ...doc.data() }));
+                window.gamesData = games;
+                renderGames(games);
+                updateDashboardStats(games, window.galleryData || [], window.feedbackData || []);
+                renderDashboardActivity(games, window.galleryData || [], window.feedbackData || []);
+            });
+            
+            // Listener Galeri
+            onSnapshot(collection(db, galleryCollectionPath), (snapshot) => {
+                const galleryItems = [];
+                snapshot.forEach(doc => galleryItems.push({ id: doc.id, ...doc.data() }));
+                window.galleryData = galleryItems;
+                renderGallery(galleryItems);
+                updateDashboardStats(window.gamesData || [], galleryItems, window.feedbackData || []);
+                renderDashboardActivity(window.gamesData || [], galleryItems, window.feedbackData || []);
+            });
+
+            // Listener Laporan/Feedback
+            onSnapshot(collection(db, feedbackCollectionPath), (snapshot) => {
+                let feedbacks = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    let tagsArray = [];
+                    try {
+                        tagsArray = data.tags && typeof data.tags === 'string' ? JSON.parse(data.tags) : (Array.isArray(data.tags) ? data.tags : []);
+                    } catch (e) {
+                        console.error("Gagal parse tags:", e);
+                    }
+                    feedbacks.push({ id: doc.id, ...data, tags: tagsArray });
+                });
+                window.feedbackData = feedbacks; 
+                updateReportStats(feedbacks);
+                applyReportFilters();
+                updateDashboardStats(window.gamesData || [], window.galleryData || [], feedbacks);
+                renderDashboardActivity(window.gamesData || [], window.galleryData || [], feedbacks);
+            });
+        }
+
+        async function initFirebase() {
+            try {
+                if (Object.keys(firebaseConfig).length === 0) return;
+                app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+                setLogLevel('silent'); 
+                
+                // Sign-in
+                if (initialAuthToken) await signInWithCustomToken(auth, initialAuthToken);
+                else await signInAnonymously(auth);
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        document.getElementById('userIdDisplay').textContent = 'Status: Terhubung (' + userId + ')';
+                        document.getElementById('userIdDisplayDashboard').textContent = 'Database: Terhubung (' + userId + ')';
+                        setupRealtimeListener();
+                    } else {
+                        document.getElementById('userIdDisplayDashboard').textContent = 'Database: Gagal Terhubung';
+                    }
+                });
+            } catch (error) { console.error("Firebase Error:", error); }
+        }
+
+        // --- RENDERING DASHBOARD ---
+
+        function updateDashboardStats(games, gallery, feedback) {
+            // Update Metrik Utama
+            document.getElementById('totalGamesStat').textContent = games.length;
+            document.getElementById('totalGalleryStat').textContent = gallery.length;
+            document.getElementById('pendingFeedbackStat').textContent = feedback.filter(f => f.status === 'Pending').length;
+            document.getElementById('criticismCount').textContent = feedback.filter(f => f.type === 'Kritik').length;
+
+            // Kualitas Data (Permainan tanpa Genre atau Platform)
+            const incompleteGames = games.filter(g => !g.genre || !g.platform || g.genre.trim() === '' || g.platform.trim() === '').length;
+            document.getElementById('incompleteGamesStat').textContent = incompleteGames;
+
+            // Status Inventaris Ringkas
+            const indoor = games.filter(g => g.platform === 'Dalam Ruangan').length;
+            const outdoor = games.filter(g => g.platform === 'Luar Ruangan').length;
+            const digital = games.filter(g => g.platform === 'Digital').length;
+            const latestGallery = gallery.length > 0 ? gallery.slice(-1)[0] : null;
+
+            document.getElementById('indoorGamesStat').textContent = indoor;
+            document.getElementById('outdoorGamesStat').textContent = outdoor;
+            document.getElementById('digitalGamesStat').textContent = digital;
+            document.getElementById('latestGalleryCount').textContent = latestGallery ? formatRelativeTime(latestGallery.lastUpdated) : 'Tidak ada';
+        }
+
+        function renderDashboardActivity(games, gallery, feedback) {
+            latestActivityListEl.innerHTML = '';
+            
+            // Gabungkan Games dan Gallery menjadi satu list aktivitas
+            // Tambahkan tipe: 'GameAdded', 'GameUpdated', 'GalleryAdded', 'GalleryUpdated'
+            const gameActivities = games.map(g => ({
+                id: g.id, 
+                type: 'Permainan', 
+                action: 'Diperbarui', 
+                name: g.name, 
+                timestamp: g.lastUpdated 
+            })).sort((a, b) => b.timestamp - a.timestamp); // Sort games by timestamp
+
+            const galleryActivities = gallery.map(g => ({
+                id: g.id, 
+                type: 'Galeri', 
+                action: 'Diperbarui', 
+                name: g.title, 
+                timestamp: g.lastUpdated 
+            })).sort((a, b) => b.timestamp - a.timestamp); // Sort gallery by timestamp
+
+            // Kita ambil 3 aktivitas Permainan dan 3 aktivitas Galeri terbaru
+            const recentGameActivity = gameActivities.slice(0, 3);
+            const recentGalleryActivity = galleryActivities.slice(0, 3);
+            
+            // Gabungkan dan ambil 5 yang paling baru dari kedua jenis
+            const combinedActivities = [...recentGameActivity, ...recentGalleryActivity];
+            combinedActivities.sort((a, b) => {
+                const dateA = a.timestamp ? a.timestamp.toDate() : new Date(0);
+                const dateB = b.timestamp ? b.timestamp.toDate() : new Date(0);
+                return dateB - dateA;
+            });
+            const latestActivities = combinedActivities.slice(0, 5);
+
+
+            if (latestActivities.length === 0) {
+                latestActivityListEl.innerHTML = '<li style="text-align: center; color: #6b7280; padding: 1rem 0; list-style: none;">Belum ada aktivitas data terbaru.</li>';
+                return;
+            }
+
+            latestActivities.forEach(a => {
+                let icon, iconBg, iconColor;
+                if (a.type === 'Permainan') {
+                    icon = 'dices'; iconBg = '#ccfbf1'; iconColor = '#0d9488';
+                } else if (a.type === 'Galeri') {
+                    icon = 'camera'; iconBg = '#dbeafe'; iconColor = '#2563eb';
+                }
+                const dateText = formatRelativeTime(a.timestamp);
+
+                const item = `
+                    <li class="activity-list-item" style="border-bottom: none;">
+                        <div class="activity-icon-container" style="background-color: ${iconBg};">
+                            <span data-lucide="${icon}" class="icon-medium" style="color: ${iconColor};"></span>
+                        </div>
+                        <div style="flex-grow: 1;">
+                            <div class="flex-between" style="align-items: center; margin-bottom: 0.25rem;">
+                                <span style="font-weight: 600; color: #1f2937;">${a.type}</span>
+                                <span style="font-size: 0.75rem; color: #9ca3af;">${dateText}</span>
+                            </div>
+                            <p style="font-size: 0.875rem; color: #4b5563;">
+                                Data <strong>${a.name}</strong> berhasil <strong>Diperbarui</strong>.
+                            </p>
+                        </div>
+                    </li>`;
+                latestActivityListEl.insertAdjacentHTML('beforeend', item);
+            });
+
+            lucide.createIcons();
+        }
+
+        // --- RENDERING GAMES (Tetap) ---
+        function renderGames(games) {
+            gamesTableBody.innerHTML = '';
+            if (games.length === 0) {
+                gamesTableBody.innerHTML = '<tr><td colspan="5" style="padding: 1rem 1.5rem; text-align: center; font-size: 0.875rem; color: #6b7280;">Belum ada data.</td></tr>';
+                return;
+            }
+            games.sort((a, b) => a.name.localeCompare(b.name));
+            games.forEach(game => {
+                const date = formatFirestoreDate(game.lastUpdated);
+                const row = `
+                    <tr class="table-body">
+                        <td>${game.name}</td>
+                        <td>${game.platform}</td>
+                        <td>${game.genre}</td>
+                        <td>${date}</td>
+                        <td class="action-cell">
+                            <div class="action-buttons">
+                                <button onclick="window.editGame('${game.id}', '${game.name.replace(/'/g, "\\'")}', '${game.platform}', '${game.genre}')" class="icon-button edit-button"><span data-lucide="square-pen" class="icon-small"></span></button>
+                                <button onclick="window.promptDeleteGame('${game.id}', '${game.name.replace(/'/g, "\\'")}')" class="icon-button delete-button"><span data-lucide="trash-2" class="icon-small"></span></button>
+                            </div>
+                        </td>
+                    </tr>`;
+                gamesTableBody.insertAdjacentHTML('beforeend', row);
+            });
+            lucide.createIcons();
+        }
+
+        // --- RENDERING GALLERY (Tetap) ---
+        function renderGallery(items) {
+            galleryGrid.innerHTML = '';
+            if (items.length === 0) {
+                galleryGrid.innerHTML = '<p style="text-align: center; color: #6b7280; grid-column: 1 / -1; padding: 2rem 0;">Tidak ada foto di galeri. Silakan tambahkan!</p>';
+                return;
+            }
+            items.forEach(item => {
+                const imageUrl = item.imageUrl && item.imageUrl.startsWith('http') 
+                                ? item.imageUrl 
+                                : `https://placehold.co/400x300/94a3b8/FFF?text=${item.title.replace(/\s/g, '+') || 'Foto'}`;
+
+                const card = `
+                    <div class="gallery-card">
+                        <div class="gallery-img-container">
+                            <img src="${imageUrl}" alt="${item.title}" onerror="this.onerror=null; this.src='https://placehold.co/400x300/94a3b8/FFF?text=URL+Eror'" class="gallery-img">
+                            <div style="position: absolute; inset: 0; background-color: rgba(0,0,0,0); transition: background-color 0.3s;"></div>
+                        </div>
+                        <div class="gallery-action-overlay">
+                            <button onclick="window.editGalleryItem('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.description.replace(/'/g, "\\'")}', '${item.imageUrl.replace(/'/g, "\\'")}')" class="overlay-button" style="color: #fcd34d;"><span data-lucide="pencil" class="icon-small"></span></button>
+                            <button onclick="window.promptDeleteGallery('${item.id}', '${item.title.replace(/'/g, "\\'")}')" class="overlay-button" style="color: #fca5a5;"><span data-lucide="trash-2" class="icon-small"></span></button>
+                        </div>
+                        <div style="padding: 1rem;">
+                            <h3 style="font-weight: 700; color: #1f2937;">${item.title}</h3>
+                            <p style="font-size: 0.875rem; color: #6b7280; margin-top: 0.25rem;">${item.description}</p>
+                        </div>
+                    </div>`;
+                galleryGrid.insertAdjacentHTML('beforeend', card);
+            });
+            lucide.createIcons();
+        }
+
+        // --- LOGIKA LAPORAN (REALTIME) (Tetap) ---
+        const getTypeStyle = (type) => {
+            return type === "Kritik" 
+                ? "color: #b91c1c; background-color: #fee2e2; border: 1px solid #fca5a5;" 
+                : "color: #065f46; background-color: #d1fae5; border: 1px solid #6ee7b7;";
+        };
+        
+        const getStatusStyle = (status) => {
+            switch (status) {
+                case "Selesai": return "color: #047857; background-color: #d1fae5;";
+                case "Dipertimbangkan": return "color: #1d4ed8; background-color: #eff6ff;";
+                case "Pending": default: return "color: #9a3412; background-color: #fff7ed;";
+            }
+        };
+
+        const renderFeedbackList = (list) => {
+            feedbackListEl.innerHTML = '';
+            if (list.length === 0) {
+                feedbackListEl.innerHTML = `<p style="text-align: center; color: #6b7280; padding: 2rem 0;">Tidak ada masukan yang cocok.</p>`;
+                return;
+            }
+            list.forEach(feedback => {
+                const typeStyle = getTypeStyle(feedback.type);
+                const statusStyle = getStatusStyle(feedback.status);
+                
+                const item = document.createElement('div');
+                item.className = "report-item";
+                item.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; border-bottom: 1px solid #f3f4f6; padding-bottom: 0.75rem;">
+                        <div><p style="font-size: 1.25rem; font-weight: 700; color: #1f2937;">${feedback.name}</p><p style="font-size: 0.875rem; color: #6b7280;">${feedback.email}</p></div>
+                        <span style="display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; ${typeStyle}">${feedback.type}</span>
+                    </div>
+                    <p style="color: #4b5563; margin-bottom: 1rem; font-style: italic; line-height: 1.625;">"${feedback.content}"</p>
+                    <div style="display: flex; flex-direction: column; justify-content: space-between; padding-top: 0.75rem; border-top: 1px solid #f3f4f6; font-size: 0.875rem; color: #6b7280;">
+                        <div style="margin-bottom: 0.5rem;">Tanggal: <span style="font-weight: 500; color: #374151;">${feedback.date || '-'}</span></div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                             <span style="display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; ${statusStyle}">Status: ${feedback.status}</span>
+                             <div style="display: flex; flex-wrap: wrap; gap: 0.25rem;">
+                                ${feedback.tags.map(tag => `<span style="padding: 2px 8px; font-size: 0.75rem; border-radius: 0.5rem; background-color: #e5e7eb; color: #4b5563;">${tag}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>`;
+                feedbackListEl.appendChild(item);
+            });
+        };
+
+        const updateReportStats = (feedbacks) => {
+            document.getElementById('totalFeedback').textContent = feedbacks.length;
+            document.getElementById('pendingFeedback').textContent = feedbacks.filter(f => f.status === "Pending").length;
+            document.getElementById('positiveFeedback').textContent = feedbacks.filter(f => f.type === "Saran").length;
+        };
+
+        const applyReportFilters = () => {
+            if (!window.feedbackData) return;
+            const term = reportSearchBar.value.toLowerCase().trim();
+            const type = reportFilterType.value;
+            const filtered = window.feedbackData.filter(f => (f.name.toLowerCase().includes(term) || f.content.toLowerCase().includes(term)) && (type === 'all' || f.type === type));
+            renderFeedbackList(filtered);
+        };
+
+        // --- WINDOW EXPORTS (MODAL HANDLERS) (Tetap) ---
+        // Games
+        window.openAddGameModal = () => { document.getElementById('modalTitle').textContent="Tambah Permainan"; document.getElementById('gameIdInput').value=''; gameForm.reset(); gameModal.classList.remove('hidden'); };
+        window.editGame = (id, name, platform, genre) => { document.getElementById('modalTitle').textContent=`Edit: ${name}`; document.getElementById('gameIdInput').value=id; document.getElementById('name').value=name; document.getElementById('platform').value=platform; document.getElementById('genre').value=genre; gameModal.classList.remove('hidden'); };
+        window.closeGameModal = () => gameModal.classList.add('hidden');
+        window.promptDeleteGame = (id, name) => { if(!db || !userId) return showNotification("Gagal: Database tidak terhubung.", 'error'); if(window.confirm(`Hapus ${name}?`)) deleteDoc(doc(db, gamesCollectionPath, id)).then(()=>showNotification("Terhapus", 'success')).catch(()=>showNotification("Gagal menghapus", 'error')); };
+        // Gallery
+        window.openAddGalleryModal = () => { document.getElementById('galleryModalTitle').textContent="Tambah Foto"; document.getElementById('galleryIdInput').value=''; galleryForm.reset(); galleryModal.classList.remove('hidden'); };
+        window.editGalleryItem = (id, title, desc, url) => { document.getElementById('galleryModalTitle').textContent=`Edit: ${title}`; document.getElementById('galleryIdInput').value=id; document.getElementById('photoTitle').value=title; document.getElementById('photoDescription').value=desc; document.getElementById('photoUrl').value=url; galleryModal.classList.remove('hidden'); };
+        window.closeGalleryModal = () => galleryModal.classList.add('hidden');
+        window.promptDeleteGallery = (id, title) => { if(!db || !userId) return showNotification("Gagal: Database tidak terhubung.", 'error'); if(window.confirm(`Hapus foto ${title}?`)) deleteDoc(doc(db, galleryCollectionPath, id)).then(()=>showNotification("Terhapus", 'success')).catch(()=>showNotification("Gagal menghapus", 'error')); };
+
+        // --- EVENT LISTENERS (Tetap) ---
+        // Forms
+        gameForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('gameIdInput').value;
+            const data = { name: document.getElementById('name').value, platform: document.getElementById('platform').value, genre: document.getElementById('genre').value, lastUpdated: serverTimestamp() };
+            try { id ? await setDoc(doc(db, gamesCollectionPath, id), data, {merge:true}) : await addDoc(collection(db, gamesCollectionPath), data); showNotification("Tersimpan", 'success'); window.closeGameModal(); } catch(e){ showNotification("Gagal", 'error'); }
+        });
+        galleryForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('galleryIdInput').value;
+            const data = { title: document.getElementById('photoTitle').value, description: document.getElementById('photoDescription').value, imageUrl: document.getElementById('photoUrl').value, lastUpdated: serverTimestamp() };
+            try { id ? await setDoc(doc(db, galleryCollectionPath, id), data, {merge:true}) : await addDoc(collection(db, galleryCollectionPath), data); showNotification("Tersimpan", 'success'); window.closeGalleryModal(); } catch(e){ showNotification("Gagal", 'error'); }
+        });
+        
+        document.getElementById('addGameButton').addEventListener('click', window.openAddGameModal);
+        document.getElementById('closeGameModalButton').addEventListener('click', window.closeGameModal);
+        document.getElementById('addGalleryButton').addEventListener('click', window.openAddGalleryModal);
+        document.getElementById('closeGalleryModalButton').addEventListener('click', window.closeGalleryModal);
+
+        // Navigasi
+        document.getElementById('dashboardLink').addEventListener('click', (e) => { e.preventDefault(); changeView('dashboardView'); });
+        document.getElementById('gamesLink').addEventListener('click', (e) => { e.preventDefault(); changeView('gamesView'); });
+        document.getElementById('galleryLink').addEventListener('click', (e) => { e.preventDefault(); changeView('galleryView'); });
+        document.getElementById('reportsLink').addEventListener('click', (e) => { e.preventDefault(); changeView('reportsView'); });
+        
+        // Report Filters
+        reportSearchBar.addEventListener('input', applyReportFilters);
+        reportFilterType.addEventListener('change', applyReportFilters);
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            changeView('dashboardView'); 
+        });
+        
+        initFirebase();
+    </script>
+</body>
+</html>

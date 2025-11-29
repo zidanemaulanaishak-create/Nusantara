@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTN | Permainan Tradisional Nusantara</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Baskervville+SC:wght@400..700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Baskervville+SC:wght@400..700&display=swap');
+
+
+        :root {
+            --color-primary: #1E1E1E;
+            --color-secondary: #D9D9D9;
+            --color-accent: #DAA520;
+            --color-text-light: #F5F5DC;
+            --color-text-dark: #333;
+            --color-body-bg: #E0E0E0;
+        }
+
+        /* Reset dan Gaya Dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #E4DCD1;
+            color: var(--color-text-dark);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+
+        /* 1. Header/Navigasi */
+
+        .navbar {
+            background-color: lch(88.51% 7.05 81.53 / 0.473);
+            color: #1E1E1E;
+            border: 3px solid #1E1E1E;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: "Poppins", serif;
+            padding: 20px 5%;
+            position: sticky;
+            top: 20px;
+            width: 90%;
+            border-radius: 40px;
+            font-weight: 650;
+            margin: auto;
+            z-index: 100;
+            margin-top: 30px;
+        }
+
+        .logo-container {
+            float: left;
+            margin-right: 0px;
+            align-items: center;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 50px; 
+            width: auto; 
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            font-size: 0.9em;
+            margin: 0;
+
+        }
+
+        .navbar nav ul {
+            display: flex;
+            gap: 40px;
+        }
+        .navbar nav ul a {
+            text-decoration: none;
+            transition: 0.3s;
+            padding: 12px;
+            position: relative;
+            display: inline-block;
+        }
+
+
+        .navbar nav ul a::before {
+            content: '';
+            position: absolute;
+            bottom: 0px;
+            width: 0%;
+            height: 3px;
+            background-color: #1E1E1E;
+            transition: all .5s;
+        }
+
+        .navbar nav ul a:hover::before {
+            width: 75%;
+        }
+        .hero-section {
+            height: 400px; 
+            background-color: #1E1E1E; 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: -127px;
+            position: relative;
+        }
+
+        .hero-overlay {
+            font-family: "Poppins", sans-serif;
+            color: white;
+            padding: 40px;
+            margin-top: 20px;
+        }
+
+        .hero-overlay p {
+            font-size: 1.5em;
+            letter-spacing: 5px;
+            margin-bottom: 5px;
+        }
+
+        .hero-overlay h1 {
+            font-size: 4em;
+            margin: 10px 0;
+            padding: 10px 0;
+        }
+
+        .main-content {
+            padding: 1rem;
+        }
+        @media (min-width: 768px) {
+            .main-content {
+                padding: 4rem 6rem;
+            }
+        }
+
+        .card {
+            background-color: var(--color-card-bg);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
+            border-top: 8px solid var(--color-accent);
+        }
+        @media (min-width: 768px) {
+            .card {
+                padding: 2.5rem;
+            }
+        }
+
+        /* Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem; /* 40px */
+        }
+        @media (min-width: 1024px) {
+            .grid-container {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        .col-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+
+        /* 5. Section and Typography Styling */
+        .img-container {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); /* shadow-lg */
+            border: 4px solid var(--color-primary);
+        }
+        .img-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+        .img-caption {
+            padding: 0.75rem;
+            font-size: 0.875rem;
+            text-align: center;
+            background-color: #f3f4f6; 
+            font-style: italic;
+        }
+
+        .section-box {
+            padding: 1.5rem;
+            background-color: var(--color-gray-50);
+            border-radius: 0.5rem;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06); 
+        }
+
+        .section-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Typography Helpers */
+        .text-lg { font-size: 1.125rem; }
+        .leading-relaxed { line-height: 1.625; }
+        .font-semibold { font-weight: 600; }
+        .text-accent { color: var(--color-accent); }
+
+        /* List Styling */
+        .list-ol {
+            list-style-type: decimal;
+            padding-left: 1.25rem;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .list-ul {
+            list-style-type: disc;
+            padding-left: 1.25rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            font-size: 1rem;
+            color: var(--color-gray-700);
+        }
+
+        /* Filosofi Box */
+        .filosofi-box {
+            padding: 1rem;
+            background-color: var(--color-yellow-50);
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--color-accent);
+            display: flex;
+            margin-top: 30px;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .filosofi-box h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-gray-700);
+        }
+        .filosofi-list {
+            list-style-type: disc;
+            padding-left: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+         .footer {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            padding: 4% 5%;
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1%;
+            max-width: 80%;
+            margin: 0 auto;
+            text-align: center;
+            
+            
+        }
+
+        .img-icon {
+            height: 30px;
+            width: 30px;
+            gap: 20px;
+            filter: brightness(0) invert(1);
+
+        }
+
+        .footer-col {
+            flex: 1;
+            width: 30%;
+        }
+
+        .footer-col h3 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .footer-col p {
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .social-icons span {
+            font-size: 1.5em;
+            margin-right: 3%;
+            cursor: pointer;
+
+        }
+
+        
+         </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo-container">
+        <img src="logo.png" alt="Logo" class="logo-img">
+        <span>The Nusantara</span> 
+    </div>
+        <nav>
+            <ul>
+                 <li><a href="index.html#beranda">Beranda</a></li>
+                <li><a href="index.html#tentang">Tentang</a></li>
+                <li><a href="index.html#Pulau">Pulau</a></li>
+                <li><a href="index.html#galeri">Galeri</a></li>
+                <li><a href="index.html#faq">FAQ</a></li>
+                <li><a href="index.html#masukan">Masukan</a></li>
+                <li><a href="index.html#kontak">Kontak</a></li>
+            </ul>
+        </nav>
+         </header>
+    <section class="hero-section">
+        <div>
+        <div class="hero-overlay">
+            <h1>MAGGASING</h1>
+            <p>Permainan Tradisional Sulawesi</p>
+        </div>
+        </div>
+    </section>
+</header>
+
+<main class="main-content container">
+        <div class="card">
+            <div class="grid-container">
+                <div class="col-content">
+                    <div class="img-container">
+                        <img src="gasing (1) (1) (1).png"
+                             alt="Anak-anak bermain permainan Cublak Suweng"
+                             onerror="this.onerror=null;">
+                        <p class="img-caption">Berbagai macam warna gasing</p>
+                    </div>
+
+                    
+                    <section id="cara-bermain" class="section-box">
+                        <h2 class="section-title">
+                            Cara Bermain
+                        </h2>
+                        
+                        <ol class="list-ol">
+                            <li>
+                                <span class="font-semibold">Persiapkan Maggasing:</span>
+                                <ul class="list-ul">
+                                    <li>Pegang gasing di tangan kiri dan tali yang sudah dililitkan di tangan kanan.</li>
+                                    <li>Lilitkan tali dengan rapi pada bagian kepala gasing, pastikan lilitannya kuat.</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="font-semibold">Lempar Gasing:</span>
+                                <ul class="list-ul">
+                                    <li>Lempar gasing ke atas tanah dengan kuat dan tepat.</li>
+                                    <li>Saat gasing dilempar, tarik tali dengan cepat untuk memberikan putaran yang kuat.</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="font-semibold">Hasil putaran:</span>
+                                <ul class="list-ul">
+                                    <li>Gasing akan berputar di tanah dengan suara dengung.</li>
+                                    <li>Pemain harus menjaga gasing tetap tegak agar dapat berputar stabil dan lama.</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="font-semibold">Menentukan Pemenang:</span>
+                                <ul class="list-ul">
+                                    <li>Tergantung Aturan Permainan: Pemenang dapat ditentukan berdasarkan gasing yang paling lama berputar.</li>
+                                    <li>Permainan Kompetitif: Dalam beberapa varian permainan, pemain yang berhasil menjatuhkan gasing lawan dari lingkaran arena permainan akan menjadi pemenangnya. </li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </section>
+                </div>
+
+                <div class="col-content">
+                    <section id="pengertian">
+                        <h2 class="section-title">
+                            Pengertian
+                        </h2>
+                        <p class="text-lg leading-relaxed">
+                            <span class="font-semibold text-accent">Maggasing</span> adalah permainan tradisional gasing kayu yang populer di kalangan masyarakat Bugis, Sulawesi Selatan, di mana pemain mengikatkan tali pada gasing kayu yang berbentuk khusus dan melemparnya ke tanah untuk membuat gasing berputar secepat dan selama mungkin. Permainan ini dilakukan secara musiman, biasanya setelah musim panen atau di musim kemarau, dan mengandung nilai-nilai budaya seperti ketangkasan, kecermatan, kesabaran, serta kemampuan berpikir kritis, dan keseimbangan.
+                    </section>
+
+    
+                    <section id="filosofi">
+                        <h2 class="section-title">
+                            Asal-usul dan Filosofi
+                        </h2>
+                        
+                        <p class="text-lg leading-relaxed mb-4">
+                            Permainan Maggasing adalah permainan tradisional Bugis, Sulawesi Selatan, yang menggunakan gasing dari kayu yang diputar dengan tali. Asal usulnya tidak pasti, tetapi permainan serupa sudah ada di wilayah Asia lainnya. Secara filosofis,Maggasing melambangkan prinsip ketangkasan, kejujuran, sportifitas, dan kemampuan untuk mencapai keseimbangan serta stabilitas melalui ketekunan,Dengan makna nama :
+                        </p>
+
+                        <div class="filosofi-box">
+                            <h3>Makna Nama & Lirik</h3>
+                            <ul class="filosofi-list">
+                                <li><span class="font-semibold">Maggasing:</span> adalah penamaan dalam bahasa Bugis (suku di Sulawesi Selatan) untuk permainan ini.</li>
+                                <li><span class="font-semibold">Istilah:</span> ini merujuk pada kegiatan bermain gasing.</li>
+                                <li><span class="font-semibold">Nama:</span> permainan ini secara langsung bersumber dari peralatan pokok yang digunakan, yaitu gasing itu sendiri.</li>
+                            </ul>
+                        </div>
+                    </section>
+                    <div class="img-container">
+                        <img src="gsng (1) (1).jpg" alt="Anak-anak berkumpul membentuk lingkaran">
+                        <p class="img-caption">Cara Bermain gasing</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+    </main>
+
+    <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+     <footer class="footer" id="kontak">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>EDIT BARENG CHALLENGE</h3>
+                    <p>Inspired by pinterest</p>
+                    <p>Edited by zidane&alvin</p>
+                </div>
+                <div class="footer-col social-media">
+                    <h3>Social Media</h3>
+                    <div class="social-icons">
+                        <span><img src="instagram.png" alt="instagram" class="img-icon"></span>
+                        <span><img src="twitter.png" alt="twitter" class="img-icon"></span>
+                        <span><img src="whatsapp.png" alt="whatsapp" class="img-icon"></span>
+                        <span><img src="telegram.png" alt="telegram" class="img-icon"></span>
+                    </div>
+                </div>
+                <div class="footer-col contact-us">
+                    <h3>Hubungi Kami</h3>
+                    <p><img src="whatsapp.png" alt="whatsapp" class="img-icon"> : 083679285892</p>
+                    <p><img src="instagram.png" alt="instagram" class="img-icon"> : @thenusantara</p>
+                </div>
+            </div>
+        </footer>
+
+    
+    <!-- Script untuk Toggle Menu Mobile -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const button = document.getElementById('mobile-menu-button');
+            const menu = document.getElementById('mobile-menu');
+
+            // Fungsi untuk mengaktifkan/menonaktifkan menu mobile
+            button.addEventListener('click', () => {
+                const expanded = button.getAttribute('aria-expanded') === 'true' || false;
+                button.setAttribute('aria-expanded', !expanded);
+                menu.classList.toggle('open'); // Menggunakan kelas 'open'
+            });
+        });
+    </script>
+</body>
+</html>

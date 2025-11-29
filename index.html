@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTN | Permainan Tradisional Nusantara</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Baskervville+SC:wght@400..700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Baskervville+SC:wght@400..700&display=swap');
+
+
+        :root {
+            --color-primary: #1E1E1E;
+            --color-secondary: #D9D9D9;
+            --color-accent: #DAA520;
+            --color-text-light: #F5F5DC;
+            --color-text-dark: #333;
+            --color-body-bg: #E0E0E0;
+        }
+
+        /* Reset dan Gaya Dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #E4DCD1;
+            color: var(--color-text-dark);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+
+        /* 1. Header/Navigasi */
+
+        .navbar {
+            background-color: lch(88.51% 7.05 81.53 / 0.473);
+            color: #1E1E1E;
+            border: 3px solid #1E1E1E;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: "Poppins", serif;
+            padding: 20px 5%;
+            position: sticky;
+            top: 20px;
+            max-width: 90%;
+            border-radius: 40px;
+            font-weight: 650;
+            margin: auto;
+            z-index: 100;
+        }
+
+        .logo-container {
+            float: left;
+            margin-right: 0px;
+            align-items: center;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 50px; 
+            width: auto; 
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            font-size: 0.9em;
+            margin: 0;
+
+        }
+
+        .navbar nav ul {
+            display: flex;
+            gap: 40px;
+        }
+        .navbar nav ul a {
+            text-decoration: none;
+            transition: 0.3s;
+            padding: 12px;
+            position: relative;
+            display: inline-block;
+        }
+
+       
+
+        .navbar nav ul a::before {
+            content: '';
+            position: absolute;
+            bottom: 0px;
+            width: 0%;
+            height: 3px;
+            background-color: #1E1E1E;
+            transition: all .5s;
+        }
+
+        .navbar nav ul a:hover::before {
+            width: 75%;
+        }
+
+
+        /* 2. Hero Section */
+
+        .hero-section {
+            height: 800px;
+            background-image: url('permainan.jpeg') ;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            margin-top: -110px;
+        }
+
+        .hero-overlay {
+            font-family: "Baskervville SC", serif;
+            color: white;
+            padding: 40px;
+        }
+
+        .hero-overlay p {
+            font-size: 1.5em;
+            letter-spacing: 5px;
+            margin-bottom: 5px;
+        }
+
+        .hero-overlay h1 {
+            font-size: 4em;
+            margin: 10px 0;
+            border-top: 2px solid white;
+            border-bottom: 2px solid white;
+            padding: 10px 0;
+        }
+
+
+        /* 3. Definisi dan Pentingnya Permainan Tradisional */
+
+        .info-section {
+            padding: 65px 12%;
+        }
+
+        .info-container {
+            display: flex;
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            padding: 40px;
+            border-radius: 10px;
+            gap: 30px;
+            align-items: center;
+            box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .text-content {
+            flex: 2;
+        }
+
+        .text-content h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+
+        .image-gallery {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            min-width: 300px;
+        }
+
+        .img-placeholder {
+            width: 50%;
+            height: 380px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 5px;
+
+        }
+
+
+        .island-category-section {
+            padding: 65px 12%;
+            text-align: center;
+        }
+
+        .explore-box {
+            background-color: var(--color-primary);
+            /* Latar belakang gelap: #1E1E1E */
+            color: var(--color-text-light);
+            display: flex;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            text-align: left;
+            box-shadow:  10px 10px 20px rgba(0, 0, 0, 0.5);;
+        }
+
+        .text-part {
+            margin-left: -5%;
+            flex: 1;
+            padding: 20px 20px;
+            font-size: 55px;
+            font-weight: bold;
+            margin-left: 60px;
+            display: flex;
+            text-align: left;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .text-part1 {
+            padding: 20px 20px;
+            text-align: left;
+            font-weight: 350;
+            font-size: 30px;
+            justify-content: center;
+            
+        }
+
+        .text-part h2 {
+            font-size: 70px;
+            margin-bottom: 30px;
+            margin-left: 100px
+        }
+
+        .map-part {
+            height: 400px;
+            flex: 1;
+            background-color: var(--color-primary);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .map-placeholder-image {
+            width: 95%;
+            height: 90%;
+            margin-right: 25px;
+            border-radius: 10px;
+
+        }
+
+
+
+        .island-cards-container {
+            display: flex;
+
+            gap: 50px;
+            padding: 4% 2%;
+
+            margin: 0 auto;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: auto;
+            scroll-behavior: smooth;
+            transform: translateZ(0);
+        }
+
+        .island-cards-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .recommend-scroll::-webkit-scrollbar-thumb {
+            background-color: #d2d3d6;
+            border-radius: 10px;
+        }
+
+
+        .island-card {
+            background-color: #FFEFD5;
+            border-radius: 10px;
+            padding: 20px;
+            aspect-ratio: 1/1;
+            flex: 1 1 calc(25% - 15px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(117, 52 ,9);
+            height: 325px;
+            justify-content: space-between;
+        }
+
+        .island-map-image {
+            width: 100%;
+            height: auto;
+            max-height: 210px;
+            margin-bottom: 20px;
+            object-fit: contain;
+        }
+
+        .island-card h3 {
+            margin-bottom: 80px;
+            color: var(--color-text-dark);
+        }
+
+        .island-card h3 :hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-selengkapnya {
+            background-color: #58290D;
+            color: var(--color-text-light);
+            padding: 8px 25px;
+            border-radius: 69px;
+            font-weight: bold;
+            margin-top: 9px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-selengkapnya:hover {
+            background-color: #0a0600;
+        }
+
+
+
+
+        /* 5. Galeri Permainan */
+
+        .container-main {
+            max-width: 900px; 
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 3. Header (text-center mb-10) */
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem; /* mb-10 */
+        }
+        .header h1 {
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 800; /* font-extrabold */
+            color: #1f2937; /* text-gray-800 */
+            letter-spacing: -0.025em; /* tracking-tight */
+        }
+        .header p {
+            font-size: 1.125rem; /* text-lg */
+            color: #6b7280; /* text-gray-500 */
+            margin-top: 0.5rem; /* mt-2 */
+        }
+        @media (min-width: 640px) { /* sm: */
+            .header h1 { font-size: 3rem; } /* sm:text-5xl */
+        }
+
+        .gallery-grid {
+            display: grid;
+            padding: 40px 230px;
+            gap: 1.5rem; 
+
+        }
+        @media (min-width: 768px) { /* md: */
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr); /* md:grid-cols-3 */
+            }
+        }
+
+        .gallery-item-link {
+            display: block;
+            text-decoration: none;
+        }
+
+        .gallery-item {
+            background-color: white; /* bg-white */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+            border-radius: 0.75rem; /* rounded-xl */
+            overflow: hidden; /* overflow-hidden */
+            position: relative; /* relative */
+            
+            /* Transisi untuk hover (transform transition duration-300) */
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Hover: Efek Bayangan dan Skala (hover:shadow-2xl hover:scale-[1.03]) */
+        .gallery-item:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* shadow-2xl */
+            transform: scale(1.03); /* scale-[1.03] */
+        }
+
+        /* 6. Gambar */
+        .gallery-item img {
+            width: 100%; /* w-full */
+            height: 16rem; /* h-64 */
+            object-fit: cover; /* object-cover */
+            object-position: center; /* object-center */
+            transition: filter 0.3s ease-in-out;
+        }
+
+        /* Hover Gambar: Kecerahan (group-hover:brightness-75) */
+        .gallery-item:hover img {
+            filter: brightness(0.75);
+        }
+
+        /* 7. Overlay Hover (Judul) */
+        .overlay {
+            position: absolute; /* absolute */
+            top: 0; left: 0; right: 0; bottom: 0; /* inset-0 */
+            background-color: rgba(0, 0, 0, 0.5); /* bg-black bg-opacity-50 */
+            display: flex;
+            align-items: center; /* items-center */
+            justify-content: center; /* justify-center */
+            opacity: 0; /* opacity-0 */
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        /* Hover Overlay: Tampilkan */
+        .gallery-item:hover .overlay {
+            opacity: 1; /* group-hover:opacity-100 */
+        }
+
+        .overlay span {
+            color: white; 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            letter-spacing: 0.05em; /* tracking-wider */
+        }
+
+        /* 8. Tombol Utama (LIHAT SEMUA KOLEKSI) */
+        .button-wrapper {
+            text-align: center; /* text-center */
+            margin-top: 2.5rem; /* mt-10 */
+        }
+
+        .main-button {
+            display: inline-block; /* inline-block */
+            background-color: #1e1e1e; /* bg-indigo-600 */
+            color: white; /* text-white */
+            font-weight: 700; /* font-bold */
+            font-size: 1.125rem; /* text-lg */
+            padding: 0.75rem 2rem; /* py-3 px-8 */
+            border-radius: 9999px; /* rounded-full */
+            text-decoration: none;
+            border: none;
+            
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06); /* shadow-md */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        /* Hover Tombol */
+        .main-button:hover {
+            background-color: #53535c; /* hover:bg-indigo-700 */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* hover:shadow-lg */
+            transform: scale(1.05); /* hover:scale-105 */
+        }
+
+        /* Focus Tombol */
+        .main-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.5); /* focus:ring-4 focus:ring-indigo-300 */
+        }
+        
+        .faq-container {
+            padding: 65px 12%;
+            margin: 0;
+            align-items: center;
+
+        }
+
+        .text-judul {
+            text-align: center;
+            font-size: 170%;
+            font-weight: bold;
+        }
+
+        .faq-container-question{
+        max-width: 1250;
+        margin: 40px auto;
+        text-align: left;
+    }
+
+    
+
+       .faq-item {
+    margin-bottom: 15px;
+    margin-top: 2%;
+    border-radius: 20px;
+    background-color: #E4DCD1; 
+    border: 1px solid #1E1E1E;
+    box-shadow: 0 0 8px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+        }
+
+        .faq-item:hover {
+            background-color: #58290d69;
+        }
+
+        .faq-toggle {
+            display: none; 
+        }
+
+        .faq-question {
+            padding: 15px 30px;
+            display: flex;
+            height: 70px;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-family: "Baloo 2", sans-serif;
+            font-weight:bold;
+            font-size: 1.2em;
+            color: #333;
+            display: flex; 
+        }
+        
+
+        .faq-question span {
+    flex-grow: 1; 
+    margin-right: 20px; 
+}
+
+        /* --- Gaya untuk Single Image Icon --- */
+        .icon-image {
+            width: 16px; /* Sesuaikan ukuran gambar */
+            height: 16px;
+            object-fit: contain;
+            flex-shrink: 0;
+            transition: transform 0.3s ease-out; /* Tambahkan transisi untuk rotasi */
+            transform: rotate(0deg); /* Default: menunjuk ke kanan */
+        }
+
+        /* Putar gambar saat checkbox dicentang */
+        .faq-toggle:checked + .faq-question .icon-image {
+            transform: rotate(90deg); /* Memutar 90 derajat searah jarum jam (menunjuk ke bawah) */
+        }
+        /* --- Akhir Gaya untuk Single Image Icon --- */
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            padding: 0 20px;
+        }
+
+        
+
+        .faq-toggle:checked ~ .faq-answer {
+            max-height: 500px;
+            padding: 0px 30px 15px;
+        }
+
+        .faq-toggle:checked + .faq-question {
+            background-color: #E4DCD1;
+        }
+
+        .main-container {
+            display: flex;
+            justify-content: center; 
+            align-items: center; /* Pusatkan vertikal */
+            
+            /* Ganti 80vh dengan tinggi yang Anda inginkan untuk wadah ini */
+            height: 80vh; 
+            width: 100%;
+        }
+        .main-contain {
+            display: flex; /* Menggunakan Flexbox untuk tata letak kolom */
+            width: 60%;
+            height: 97%;
+            background-color: #A89F97; 
+            border-radius: 20px;
+            padding: 80px 60px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- Kolom Kiri (Kotak Kritik & Saran) --- */
+        .left-box-image {
+    flex: 1; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+        }
+
+        .visual-image {
+            width: 150%; /* Memastikan gambar tidak melebihi lebar kotaknya */
+            height: 70%;
+            margin-left: -10px;
+            object-fit: contain;
+            
+        }
+
+
+
+
+
+        /* --- Kolom Kanan (Formulir) --- */
+        .right-box {
+             
+            background-color: #2c2c2c; 
+            height: auto;
+            width: 45%;
+            margin-right: 5%;
+            padding: 35px 45px;
+            border-radius: 20px;
+        }
+
+        .right-box label {
+            display: block;
+            color: #f7f3ed; 
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            margin-top: 15px;
+        }
+
+        /* Input field: Nama, Email, Pesan */
+        .right-box input[type="text"],
+        .right-box input[type="email"],
+        .right-box textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #E4DCD1;
+            border-radius: 20px;
+            box-sizing: border-box; 
+            background-color: #423B3B; 
+            color: #f7f3ed;
+            font-size: 1em;
+            outline: none;
+            height: auto;
+        }
+
+        #nama {
+           
+            width: 65%; 
+            height: 50px;
+        }
+
+        #email {
+            width: 65%; 
+            height: 50px;
+        }
+
+        .right-box textarea {
+            
+            height: 150px; 
+            resize: vertical; 
+        }
+
+        .right-box input::placeholder,
+        .right-box textarea::placeholder {
+            color: rgba(247, 243, 237, 0.5); /* Placeholder yang lebih redup */
+        }
+
+        .submit-btn {
+            background-color: #A89F97; 
+            color: #1E1E1E;
+            border: 2px solid #1E1E1E;
+            border-radius: 30px;
+            padding: 10px 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 37%;
+            height: 20%;
+            display: flex;
+            align-items: center;
+            margin-top: -3%;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #6a6663;
+        }
+
+        .submit-btn .icon-arrow {
+            margin-right: 0%;
+            background-color: #1E1E1E;
+            border-radius: 50%;
+            height: 35px;
+            width: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+           
+        }
+
+        .submit-btn .icon-right {
+             filter: brightness(0) invert(1);
+             height: 20px;
+             
+        }
+
+        .text-icon {
+            font-size: large;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        /* 6. Footer */
+
+        .footer {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            padding: 4% 5%;
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1%;
+            max-width: 80%;
+            margin: 0 auto;
+            text-align: center;
+            
+            
+        }
+
+        .img-icon {
+            height: 30px;
+            width: 30px;
+            gap: 20px;
+            filter: brightness(0) invert(1);
+
+        }
+
+        .footer-col {
+            flex: 1;
+            width: 30%;
+        }
+
+        .footer-col h3 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .footer-col p {
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .social-icons span {
+            font-size: 1.5em;
+            margin-right: 3%;
+            cursor: pointer;
+
+        }
+
+        /* =================================================== */
+        /* 7. MEDIA QUERIES UNTUK RESPONSIVITAS */
+        /* =================================================== */
+
+        /* Gaya Khusus untuk Ukuran Layar Tablet (Max-width 1024px) */
+        @media (max-width: 1024px) {
+            .navbar {
+                padding: 15px 5%;
+                max-width: 95%;
+                top: 10px;
+            }
+
+            .logo-text {
+                font-size: 0.85em;
+            }
+            
+            .navbar nav ul {
+                gap: 20px;
+            }
+
+            .hero-section {
+                height: 600px;
+            }
+
+            .hero-overlay h1 {
+                font-size: 3em;
+            }
+            .hero-overlay p {
+                font-size: 1.2em;
+            }
+            
+            /* Section Info (Tentang) */
+            .info-section {
+                padding: 50px 8%;
+            }
+
+            .info-container {
+                flex-direction: column; /* Ubah tata letak menjadi kolom */
+                padding: 30px;
+            }
+
+            .image-gallery {
+                flex-direction: row; /* Pertahankan gambar berdampingan */
+                width: 100%;
+                min-width: unset;
+                height: 250px;
+                gap: 10px;
+            }
+
+            .img-placeholder {
+                height: 100%;
+            }
+
+            /* Section Pulau (Informasi) */
+            .island-category-section {
+                padding: 50px 8%;
+            }
+
+            .explore-box {
+                flex-direction: column; /* Ubah tata letak menjadi kolom */
+                text-align: center;
+            }
+
+            .text-part {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .text-part h2 {
+                font-size: 50px;
+                margin-left: 0;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            .text-part1 {
+                font-size: 24px;
+                text-align: center;
+            }
+            
+            .map-part {
+                height: 350px;
+            }
+            
+            .map-placeholder-image {
+                width: 80%;
+                margin-right: 0;
+            }
+
+            .island-cards-container {
+                padding: 4% 0;
+            }
+            
+            .island-card {
+                flex: 0 0 300px; /* Lebar tetap untuk scrolling horizontal yang lebih baik */
+                height: 300px;
+            }
+            
+            /* Galeri */
+            .gallery-grid {
+                padding: 40px 10%;
+                grid-template-columns: repeat(2, 1fr); /* 2 kolom di tablet */
+            }
+
+            /* FAQ */
+            .faq-container {
+                padding: 50px 8%;
+            }
+            
+            /* Kritik & Saran */
+            .main-container {
+                height: auto;
+                padding: 50px 0;
+            }
+            .main-contain {
+                flex-direction: column; /* Ubah tata letak menjadi kolom */
+                width: 80%; /* Lebar lebih besar */
+                padding: 40px;
+                height: auto;
+            }
+            
+            .left-box-image {
+                order: 2; /* Pindah gambar ke bawah */
+                padding: 20px 0;
+            }
+            
+            .visual-image {
+                width: 80%; /* Sesuaikan ukuran gambar */
+                height: auto;
+                margin-left: 0;
+            }
+            
+            .right-box {
+                order: 1; /* Pindah form ke atas */
+                width: 100%;
+                margin-right: 0;
+            }
+            
+            #nama, #email {
+                width: 100%;
+            }
+            
+            .submit-btn {
+                width: auto;
+                padding: 10px 20px;
+                height: auto;
+                margin-top: 5%;
+            }
+
+            /* Footer */
+            .footer-content {
+                flex-direction: column; /* Ubah tata letak menjadi kolom */
+                gap: 30px;
+                max-width: 90%;
+            }
+            
+            .footer-col {
+                width: 100%;
+            }
+        }
+
+
+        /* Gaya Khusus untuk Ukuran Layar HP (Max-width 600px) */
+        @media (max-width: 600px) {
+            
+            /* Navbar dan Hamburger Menu */
+            .navbar nav {
+                display: none; /* Sembunyikan navigasi default */
+                flex-direction: column;
+                position: absolute;
+                top: 80px; /* Di bawah navbar */
+                left: 5%;
+                right: 5%;
+                background-color: #E4DCD1;
+                border: 1px solid #1E1E1E;
+                border-radius: 10px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+                z-index: 90;
+            }
+            
+            .navbar nav ul {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+            
+            .navbar nav ul a {
+                padding: 10px 20px;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(30, 30, 30, 0.1);
+            }
+
+            .navbar nav ul a:hover::before {
+                width: 0%; /* Hilangkan efek hover underline yang terlalu lebar */
+            }
+
+            /* Tombol Hamburger */
+            .menu-toggle {
+                display: block; /* Tampilkan tombol hamburger */
+                cursor: pointer;
+                padding: 5px;
+            }
+
+            .menu-toggle span {
+                display: block;
+                width: 25px;
+                height: 3px;
+                background-color: #1E1E1E;
+                margin: 5px 0;
+                transition: 0.4s;
+            }
+
+            /* Cek box untuk membuka menu */
+            #nav-toggle:checked ~ nav {
+                display: flex;
+            }
+
+            /* Animasi Hamburger */
+            #nav-toggle:checked ~ .menu-toggle span:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            #nav-toggle:checked ~ .menu-toggle span:nth-child(2) {
+                opacity: 0;
+            }
+
+            #nav-toggle:checked ~ .menu-toggle span:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            /* Hero Section */
+            .hero-section {
+                height: 400px;
+                margin-top: -60px;
+            }
+
+            .hero-overlay h1 {
+                font-size: 2.5em;
+            }
+            .hero-overlay p {
+                font-size: 1em;
+                letter-spacing: 3px;
+            }
+
+            /* Section Info (Tentang) */
+            .info-section {
+                padding: 30px 5%;
+            }
+
+            .text-content h2 {
+                font-size: 1.5em;
+            }
+            
+            .image-gallery {
+                flex-direction: column; /* Gambar di info-section menjadi vertikal */
+                height: auto;
+            }
+
+            .img-placeholder {
+                width: 100%;
+                height: 200px;
+            }
+
+            /* Section Pulau (Informasi) */
+            .island-category-section {
+                padding: 30px 5%;
+            }
+            
+            .text-part h2 {
+                font-size: 40px;
+            }
+            
+            .text-part1 {
+                font-size: 20px;
+            }
+            
+            .map-part {
+                height: 250px;
+            }
+
+            /* Galeri */
+            .gallery-grid {
+                padding: 30px 5%;
+                grid-template-columns: 1fr; /* 1 kolom di HP */
+            }
+            
+            h1#galeri {
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+                font-size: 2em;
+            }
+
+            .main-button {
+                font-size: 1em;
+                padding: 0.6rem 1.5rem;
+            }
+
+            /* FAQ */
+            .faq-container {
+                padding: 30px 5%;
+            }
+            .faq-question {
+                font-size: 1em;
+            }
+            
+            /* Kritik & Saran */
+            .main-contain {
+                width: 95%; /* Hampir penuh */
+                padding: 20px;
+            }
+
+            .right-box {
+                padding: 20px;
+            }
+
+            .submit-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .submit-btn .icon-arrow {
+                margin-right: 10px;
+            }
+
+            /* Footer */
+            .footer-content {
+                max-width: 100%;
+                text-align: center;
+            }
+        }
+
+       
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo-container">
+        <img src="logo.png" alt="Logo" class="logo-img">
+        <span>The Nusantara</span>
+    </div>
+
+<input type="checkbox" id="nav-toggle" class="faq-toggle"> <label for="nav-toggle" class="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+
+        <nav>
+            <ul>
+                <li><a href="#beranda">Beranda</a></li>
+                <li><a href="#tentang">Tentang</a></li>
+                <li><a href="#informasi">Pulau</a></li>
+                <li><a href="#galeri">Galeri</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#masukan">Masukan</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-section" id="beranda">
+        <div class="hero-overlay">
+            <p>PERMAINAN</p>
+            <h1>TRADISIONAL</h1>
+            <p>NUSANTARA</p>
+        </div>
+    </section>
+    <br><br><br><br><br>
+    <section class="info-section" id="tentang">
+        <div class="info-container">
+            <div class="text-content">
+                <h2>Apa Itu Permainan Tradisional?</h2>
+                <p>Permainan tradisional adalah kegiatan bermain yang sudah ada sejak lama, diwariskan turun-temurun
+                    dari generasi ke generasi, dan sangat erat kaitannya dengan budaya serta adat masyarakat setempat,
+                    tanpa menggunakan teknologi modern.</p>
+                <br>
+                <h2>Mengapa Mengenal Permainan Tradisional Itu Penting?</h2>
+                <p>Melestarikan identitas budaya dan warisan nenek moyang bangsa, memperkuat jati diri melalui
+                    nilai-nilai seperti kebersamaan dan ketekunan, serta menunjang kesehatan fisik dan mental anak
+                    melalui aktivitas yang melatih motorik, kognitif, dan emosional.</p>
+            </div>
+            <div class="image-gallery">
+                <div class="img-placeholder" style="background-image: url('bambu.png');"></div>
+                <div class="img-placeholder" style="background-image: url('klr.png');"></div>
+            </div>
+        </div>
+    </section>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <section class="island-category-section" id="informasi">
+        <h2 class="section-title">KATEGORI PULAU</h2>
+        <br>
+        <br>
+        <div class="explore-box">
+            <div class="text-part">
+                <p>Jelajahi Permainan Di Indonesia</p>
+
+                <p class="text-part1">
+                    Pulau-pulau yang memiliki permainan tradisional
+                </p>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="map-part">
+                <img src="pulau.png" alt="Peta Indonesia Siluet" class="map-placeholder-image">
+            </div>
+        </div>
+        
+        <div class="island-cards-container">
+            <div class="island-card">
+                <img src="Pulau Jawa.jpeg" alt="Siluet Pulau Jawa" class="island-map-image">
+                <h1 style="color: #40200D;">Jawa</h1>
+                <a href="http://localhost/belajar_html/modul_7/jawa.html" class="btn-selengkapnya">Selengkapnya</a>
+            </div>
+            <div class="island-card">
+                <img src="sumatera.jpeg" alt="Siluet Pulau Sumatera" class="island-map-image">
+                <h1 style="color: #40200D;">Sumatera</h1>
+                <a href="http://localhost/belajar_html/modul_7/pulau_sulawesi.html" class="btn-selengkapnya">Selengkapnya</a>
+            </div>
+            <div class="island-card">
+                <img src="papua (2).jpeg" alt="Siluet Pulau Papua" class="island-map-image">
+                <h1 style="color: #40200D;">Papua</h1>
+                <a href="#" class="btn-selengkapnya">Selengkapnya</a>
+            </div>
+            <div class="island-card">
+                <img src="Sulawesi.jpeg" alt="Siluet Pulau Sulawesi" class="island-map-image">
+                <h1 style="color: #40200D;">Sulawesi</h1>
+                <a href="#" class="btn-selengkapnya">Selengkapnya</a>
+            </div>
+            <div class="island-card">
+                <img src="Pulau Kalimantan.jpeg" alt="Siluet Pulau Kalimantan" class="island-map-image">
+                <h1 style="color: #40200D;">Kalimantan</h1>
+                <a href="#" class="btn-selengkapnya">Selengkapnya</a>
+            </div>
+            <div class="island-card">
+                <img src="nsat.png" alt="Siluet Pulau Kalimantan" style="margin-top: 65px;" class="island-map-image">
+                <br>
+                <h1 style="color: #40200D;">Nusa Tenggara</h1>
+                <a href="#" class="btn-selengkapnya">Selengkapnya</a>
+            </div>
+
+        </div>
+    </section>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 style="margin-left: 890px;" id="galeri">Preview</h1>
+     <div class="gallery-grid">
+
+            <a href="#" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="congklak.jpeg" 
+                         alt="Permainan Congklak" >
+                    
+                    <div class="overlay">
+                        <span>Congklak</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="gsng (1) (1).jpg" 
+                         alt="Permainan Gasing">
+                    
+                    <div class="overlay">
+                        <span>Gasing</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="bekel.jpeg" 
+                         alt="Permainan Bola Bekel">
+                    
+                    <div class="overlay">
+                        <span>Bola Bekel</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="button-wrapper">
+            <a href="http://localhost/belajar_html/modul_7/Galeri.html" class="main-button">
+                LIHAT SEMUA KOLEKSI
+            </a>
+        </div>
+        
+    </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    <div class="faq-container" id="faq">
+        <h2 class="text-judul">Pertanyaan yang sering diajukan (FAQ)</h2>
+        <br>
+        <br>
+        <br>
+        <div class="faq-container-question">
+        <div class="faq-item">
+            <input type="checkbox" id="q1" class="faq-toggle"> 
+            
+            <label for="q1" class="faq-question">
+                <span>Apa itu The Nusantara ?</span>
+                <img src="play.png" alt="play" class="icon-image">
+            </label>
+            
+            <div class="faq-answer">
+                <p>The Nusantara kemungkinan adalah sebuah nama proyek, organisasi, atau inisiatif yang berkaitan dengan Indonesia. Untuk mengetahui lebih detail, Anda perlu mencari informasi resmi dari sumber yang terkait.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <input type="checkbox" id="q2" class="faq-toggle">
+            <label for="q2" class="faq-question">
+                <span>Apa tujuan diciptanya website ini?</span>
+                <img src="play.png" alt="play" class="icon-image">
+            </label>
+            <div class="faq-answer">
+                <p>Tujuan diciptakannya website ini biasanya untuk menyediakan informasi, mempromosikan layanan, atau menjadi platform interaksi bagi pengguna terkait The Nusantara.</p>
+            </div>
+        </div>
+
+         <div class="faq-item">
+            <input type="checkbox" id="q3" class="faq-toggle">
+            <label for="q3" class="faq-question">
+                <span>Apakah website ini dapat diakses secara gratis ?</span>
+                <img src="play.png" alt="play" class="icon-image">
+            </label>
+            <div class="faq-answer">
+                <p>Ya, website ini dapat diakses secara gratis tanpa dipungut biaya sepeserpun</p>
+            </div>
+        </div>
+
+         <div class="faq-item">
+            <input type="checkbox" id="q4" class="faq-toggle">
+            <label for="q4" class="faq-question">
+                <span>Apakah The Nusantara sudah memakai informasi yang resmi ?</span>
+                <img src="play.png" alt="play" class="icon-image">
+            </label>
+            <div class="faq-answer">
+                <p>Ya, informasi yang disajikan di The Nusantara disusun dengan mengacu pada berbagai sumber resmi seperti Kemendikbud, Perpustakan Nasional, dan lain-lain. Informasi sudah diperiksa secara ulang dan dibandingkan dengan dokumen resmi agar tetap akurat dan sesuai fakta. </p>
+            </div>
+        </div>
+    </div>
+    </div>
+    <br><br><br><br><br><br>
+
+    <div class="main-container" id="masukan">
+        <div class="main-contain">
+        
+            <div class="left-box-image">
+            <img src="saran.png" alt="Visual Kritik dan Saran" class="visual-image">
+        </div>
+
+            <div class="right-box">
+                <form action="#" method="POST"> 
+                    
+                    <label for="nama">Nama</label>
+                    <input type="text" id="nama" name="nama" >
+                    
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" >
+                    
+                    <label for="pesan">Pesan</label>
+                    <textarea id="pesan" name="pesan" ></textarea>
+                    
+                    <button type="submit" class="submit-btn">
+                        <span class="icon-arrow">
+                            
+                            <img src="right-arrow.png" alt="right"  class="icon-right">
+                        </span><span class="text-icon">Submit</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br><br>
+        <footer class="footer" id="kontak">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>EDIT BARENG CHALLENGE</h3>
+                    <p>Inspired by pinterest</p>
+                    <p>Edited by zidane&alvin</p>
+                </div>
+                <div class="footer-col social-media">
+                    <h3>Social Media</h3>
+                    <div class="social-icons">
+                        <span><img src="instagram.png" alt="instagram" class="img-icon"></span>
+                        <span><img src="twitter.png" alt="twitter" class="img-icon"></span>
+                        <span><img src="whatsapp.png" alt="whatsapp" class="img-icon"></span>
+                        <span><img src="telegram.png" alt="telegram" class="img-icon"></span>
+                    </div>
+                </div>
+                <div class="footer-col contact-us">
+                    <h3>Hubungi Kami</h3>
+                    <p><img src="whatsapp.png" alt="whatsapp" class="img-icon"> : 083679285892</p>
+                    <p><img src="instagram.png" alt="instagram" class="img-icon"> : @thenusantara</p>
+                </div>
+            </div>
+        </footer>
+
+</body>
+
+</html>
